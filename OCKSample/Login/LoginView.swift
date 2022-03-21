@@ -23,6 +23,7 @@ struct LoginView: View {
     @State private var password = ""
     @State var firstName: String = ""
     @State var lastName: String = ""
+    @State var email: String = ""
     @State private var signupLoginSegmentValue = 0
     @State private var presentMainScreen = false
 
@@ -80,6 +81,12 @@ struct LoginView: View {
                         .cornerRadius(20.0)
                         .shadow(radius: 10.0, x: 20, y: 10)
 
+                   TextField("Email", text: $email)
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(20.0)
+                        .shadow(radius: 10.0, x: 20, y: 10)
+
                 }
             }.padding([.leading, .trailing], 27.5)
             // swiftlint:disable:next line_length
@@ -92,7 +99,8 @@ struct LoginView: View {
                                                username: usersname,
                                                password: password,
                                                firstName: firstName,
-                                               lastName: lastName)
+                                               lastName: lastName,
+                                               email: email)
                     }
                 } else {
                     Task {

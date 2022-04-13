@@ -203,10 +203,14 @@ class CareViewController: OCKDailyPageViewController {
                                     on date: Date) -> [UIViewController]? {
         switch task.id {
         case TaskID.steps:
-            let view = NumericProgressTaskView(
+            let view = LinkView(title: Text("Meal Links"),
+                                detail: Text("Websites for good, healthy recipes!"),
+                                instructions: nil,
+                                links: [.website("https://allthehealthythings.com", title: "All The Healthy Things")])
+            /*NumericProgressTaskView(
                 task: task,
                 eventQuery: OCKEventQuery(for: date),
-                storeManager: self.storeManager)
+                storeManager: self.storeManager)*/
                 .padding([.vertical], 20)
                 .careKitStyle(CustomStyleKey.defaultValue)
 

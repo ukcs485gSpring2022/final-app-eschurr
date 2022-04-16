@@ -15,7 +15,6 @@ import UIKit
 import os.log
 import Combine
 
-@MainActor
 class ProfileViewModel: ObservableObject {
 
     @Published var patient: OCKPatient?
@@ -50,6 +49,7 @@ class ProfileViewModel: ObservableObject {
         }
     }
 
+    @MainActor
     @objc private func replaceStore() {
         guard let currentStore = StoreManagerKey.defaultValue else { return }
         storeManager = currentStore
@@ -62,6 +62,7 @@ class ProfileViewModel: ObservableObject {
         }
     }
 
+    @MainActor
     private func findAndObserveCurrentProfile() async {
 
         guard let uuid = Self.getRemoteClockUUIDAfterLoginFromLocalStorage() else {
@@ -76,8 +77,10 @@ class ProfileViewModel: ObservableObject {
         queryForCurrentPatient.ids = [uuid.uuidString] // Search for the current logged in user
 
         do {
-            let foundPatient = try await self.storeManager?.store.fetchAnyPatients(query: queryForCurrentPatient)
-            guard let currentPatient = foundPatient?.first as? OCKPatient else {
+            // swiftlint:disable:next force_cast
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            guard let foundPatient = try await appDelegate.store?.fetchPatients(query: queryForCurrentPatient),
+                let currentPatient = foundPatient.first else {
                 // swiftlint:disable:next line_length
                 Logger.profile.error("Error: Couldn't find patient with id \"\(uuid)\". It's possible they have never been saved.")
                 return
@@ -89,6 +92,7 @@ class ProfileViewModel: ObservableObject {
         }
     }
 
+    @MainActor
     private func observePatient(_ patient: OCKPatient) {
 
         storeManager?.publisher(forPatient: patient, categories: [.add, .update, .delete])
@@ -119,6 +123,7 @@ class ProfileViewModel: ObservableObject {
         return remoteClockUUID
     }
 
+    @MainActor
     static func setupRemoteAfterLoginButtonTapped() async throws {
 
         let remoteUUID = try await Self.getRemoteClockUUIDAfterLoginFromCloud()
@@ -144,7 +149,7 @@ class ProfileViewModel: ObservableObject {
     }
 
     // MARK: User intentions
-
+    @MainActor
     func saveProfile(_ first: String, last: String, birth: Date) async throws {
 
         if var patientToUpdate = patient {
@@ -197,6 +202,7 @@ class ProfileViewModel: ObservableObject {
         }
     }
 
+    @MainActor
     static func savePatientAfterSignUp(_ type: UserType, first: String, last: String) async throws -> OCKPatient {
 
         let remoteUUID = UUID()
@@ -226,7 +232,7 @@ class ProfileViewModel: ObservableObject {
             throw AppError.couldntCast
         }
 
-        try await appDelegate.store.populateSampleData()
+        try await appDelegate.store?.populateSampleData()
         try await appDelegate.healthKitStore.populateSampleData()
         appDelegate.parseRemote.automaticallySynchronizes = true
 
@@ -239,6 +245,7 @@ class ProfileViewModel: ObservableObject {
     // You may not have seen "throws" before, but it's simple,
     // this throws an error if one occurs, if not it behaves as normal
     // Normally, you've seen do {} catch{} which catches the error, same concept...
+    @MainActor
     func logout() async {
         do {
             try await User.logout()

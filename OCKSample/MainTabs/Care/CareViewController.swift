@@ -117,26 +117,26 @@ class CareViewController: OCKDailyPageViewController {
             isSyncing = true
         }
 
-    DispatchQueue.main.async {
+        DispatchQueue.main.async {
 
-                // swiftlint:disable:next force_cast
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                appDelegate.store.synchronize { error in
+            // swiftlint:disable:next force_cast
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.store?.synchronize { error in
 
-                    DispatchQueue.main.async {
-                        let errorString = error?.localizedDescription ?? "Successful sync with remote!"
-                        Logger.feed.info("\(errorString)")
-                        if error != nil {
-                            self.navigationItem.rightBarButtonItem?.tintColor = .red
-                        } else {
-                            // swiftlint:disable:next force_cast
-                            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                            if appDelegate.isFirstAppOpen {
-                                self.reloadView()
-                            }
+                DispatchQueue.main.async {
+                    let errorString = error?.localizedDescription ?? "Successful sync with remote!"
+                    Logger.feed.info("\(errorString)")
+                    if error != nil {
+                        self.navigationItem.rightBarButtonItem?.tintColor = .red
+                    } else {
+                        // swiftlint:disable:next force_cast
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        if appDelegate.isFirstAppOpen {
+                            self.reloadView()
                         }
                         self.isSyncing = false
                     }
+                    self.isSyncing = false
                 }
             }
     }

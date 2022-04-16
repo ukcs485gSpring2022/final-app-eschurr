@@ -139,6 +139,7 @@ class CareViewController: OCKDailyPageViewController {
                     self.isSyncing = false
                 }
             }
+        }
     }
 
     @objc private func shouldReload() {

@@ -6,7 +6,7 @@
 build/
 DerivedData/
 Package.resolved
-ResearchKit
+ResearchKit/
 
 ## Various settings
 .DS_Store

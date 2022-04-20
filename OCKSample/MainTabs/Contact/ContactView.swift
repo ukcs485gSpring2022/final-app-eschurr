@@ -15,11 +15,11 @@ import os.log
 struct ContactView: UIViewControllerRepresentable {
 
     func makeUIViewController(context: Context) -> some UIViewController {
-        guard let manager = StoreManagerKey.defaultValue else {
+        /*guard let manager = StoreManagerKey.defaultValue else {
             Logger.contact.error("Couldn't unwrap storeManager")
             return UINavigationController()
-        }
-        let contacts = OCKContactsListViewController(storeManager: manager)
+        }*/
+        let contacts = CustomContactsViewController() // OCKContactsListViewController(storeManager: manager)
         return UINavigationController(rootViewController: contacts)
     }
 

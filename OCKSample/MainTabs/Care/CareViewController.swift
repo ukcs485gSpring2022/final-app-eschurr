@@ -242,6 +242,7 @@ class CareViewController: OCKDailyPageViewController {
             return [checkInCard]
 
         case TaskID.rangeOfMotionCheck:
+
             let rangeOfMotionCheckCard =
                 OCKSurveyTaskViewController(
                 taskID: TaskID.rangeOfMotionCheck,

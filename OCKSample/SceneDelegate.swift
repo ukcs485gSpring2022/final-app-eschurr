@@ -110,15 +110,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [careViewController, contactViewController]
         self.window?.rootViewController = tabBarController
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            // swiftlint:disable:next force_cast
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.healthKitStore.requestHealthKitPermissionsForAllTasksInStore { error in
-
-                if error != nil {
-                    Logger.appDelegate.error("\(error!.localizedDescription)")
-                }
-            }
-        }
+        
     }
 }

@@ -81,7 +81,14 @@ enum TaskID {
     static let rangeOfMotionCheck = "rangeOfMotionCheck"
 
     static var ordered: [String] {
-        [Self.steps, Self.checkIn, Self.rangeOfMotionCheck, Self.doxylamine, Self.kegels, Self.stretch, Self.nausea, Self.fasting]
+        [Self.steps,
+         Self.checkIn,
+         Self.rangeOfMotionCheck,
+         Self.doxylamine,
+         Self.kegels,
+         Self.stretch,
+         Self.nausea,
+         Self.fasting]
     }
 }
 

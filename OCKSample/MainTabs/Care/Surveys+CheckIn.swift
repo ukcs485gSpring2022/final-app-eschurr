@@ -115,7 +115,7 @@ extension Surveys {
         completionStep.detailText = "We know the road to recovery can be tough. Keep up the good work!"
 
         rangeOfMotionOrderedTask.appendSteps([completionStep])
-        
+
         return rangeOfMotionOrderedTask
     }
 

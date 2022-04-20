@@ -242,7 +242,8 @@ class CareViewController: OCKDailyPageViewController {
             return [checkInCard]
 
         case TaskID.rangeOfMotionCheck:
-            let checkInCard =
+
+            let rangeOfMotionCheckCard =
                 OCKSurveyTaskViewController(
                 taskID: TaskID.rangeOfMotionCheck,
                 eventQuery: OCKEventQuery(for: date),
@@ -250,8 +251,8 @@ class CareViewController: OCKDailyPageViewController {
                 survey: Surveys.rangeOfMotionCheck(),
                 extractOutcome: Surveys.extractRangeOfMotionOutcome
             )
-            checkInCard.surveyDelegate = self
-            return [checkInCard]
+            rangeOfMotionCheckCard.surveyDelegate = self
+            return [rangeOfMotionCheckCard]
 
         case TaskID.steps:
             let view = LinkView(title: Text("Meal Links"),

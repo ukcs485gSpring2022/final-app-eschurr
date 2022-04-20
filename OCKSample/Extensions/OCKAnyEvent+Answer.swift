@@ -9,7 +9,7 @@
 import CareKitStore
 
 extension OCKAnyEvent {
-    
+
     func answer(kind: String) -> Double {
         let values = outcome?.values ?? []
         let match = values.first(where: { $0.kind == kind })

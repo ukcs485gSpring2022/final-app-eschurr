@@ -240,7 +240,7 @@ class CareViewController: OCKDailyPageViewController {
             )
             checkInCard.surveyDelegate = self
             return [checkInCard]
-            
+
         case TaskID.rangeOfMotionCheck:
             let checkInCard =
                 OCKSurveyTaskViewController(
@@ -252,7 +252,7 @@ class CareViewController: OCKDailyPageViewController {
             )
             checkInCard.surveyDelegate = self
             return [checkInCard]
-            
+
         case TaskID.steps:
             let view = LinkView(title: Text("Meal Links"),
                                 detail: Text("Websites for good, healthy recipes!"),

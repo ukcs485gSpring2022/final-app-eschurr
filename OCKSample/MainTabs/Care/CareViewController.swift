@@ -36,7 +36,9 @@ import CareKit
 import CareKitStore
 import CareKitUI
 import os.log
+import ResearchKit
 
+// swiftlint:disable type_body_length
 class CareViewController: OCKDailyPageViewController {
 
     private var isSyncing = false
@@ -162,41 +164,65 @@ class CareViewController: OCKDailyPageViewController {
     override func dailyPageViewController(_ dailyPageViewController: OCKDailyPageViewController,
                                           prepare listViewController: OCKListViewController, for date: Date) {
         self.clearSubscriptions()
-        let isCurrentDay = Calendar.current.isDate(date, inSameDayAs: Date())
-
-        // Only show the tip view on the current date
-        if isCurrentDay {
-            if Calendar.current.isDate(date, inSameDayAs: Date()) {
-                // Add a non-CareKit view into the list
-                let tipTitle = "Benefits of exercising"
-                let tipText = "Learn how activity can promote a healthy pregnancy."
-                let tipView = TipView()
-                tipView.headerView.titleLabel.text = tipTitle
-                tipView.headerView.detailLabel.text = tipText
-                tipView.imageView.image = UIImage(named: "exercise.jpg")
-                tipView.customStyle = CustomStyleKey.defaultValue
-                listViewController.appendView(tipView, animated: false)
-            }
-        }
 
         Task {
-            let tasks = await self.fetchTasks(on: date)
-            tasks.compactMap {
-                let cards = self.taskViewController(for: $0, on: date)
-                cards?.forEach {
-                    if let carekitView = $0.view as? OCKView {
-                        carekitView.customStyle = CustomStyleKey.defaultValue
-                    }
-                    $0.view.isUserInteractionEnabled = isCurrentDay
-                    $0.view.alpha = !isCurrentDay ? 0.4 : 1.0
-                }
-                return cards
-            }.forEach { (cards: [UIViewController]) in
-                cards.forEach {
-                    listViewController.appendViewController($0, animated: false)
+            guard await checkIfOnboardingIsComplete() else {
+
+                let onboardCard =
+                    OCKSurveyTaskViewController(
+                    taskID: TaskID.onboarding,
+                    eventQuery: OCKEventQuery(for: date),
+                    storeManager: self.storeManager,
+                    survey: Surveys.onboardingSurvey(),
+                    extractOutcome: { _ in [OCKOutcomeValue(Date())] }
+                )
+
+                onboardCard.surveyDelegate = self
+
+                listViewController.appendViewController(
+                    onboardCard,
+                    animated: false
+                )
+
+                return
+            }
+
+            let isCurrentDay = Calendar.current.isDate(date, inSameDayAs: Date())
+
+            // Only show the tip view on the current date
+            if isCurrentDay {
+                if Calendar.current.isDate(date, inSameDayAs: Date()) {
+                    // Add a non-CareKit view into the list
+                    let tipTitle = "Benefits of exercising"
+                    let tipText = "Learn how activity can promote a healthy pregnancy."
+                    let tipView = TipView()
+                    tipView.headerView.titleLabel.text = tipTitle
+                    tipView.headerView.detailLabel.text = tipText
+                    tipView.imageView.image = UIImage(named: "exercise.jpg")
+                    tipView.customStyle = CustomStyleKey.defaultValue
+                    listViewController.appendView(tipView, animated: false)
                 }
             }
-            self.isLoading = false
+
+            Task {
+                let tasks = await self.fetchTasks(on: date)
+                tasks.compactMap {
+                    let cards = self.taskViewController(for: $0, on: date)
+                    cards?.forEach {
+                        if let carekitView = $0.view as? OCKView {
+                            carekitView.customStyle = CustomStyleKey.defaultValue
+                        }
+                        $0.view.isUserInteractionEnabled = isCurrentDay
+                        $0.view.alpha = !isCurrentDay ? 0.4 : 1.0
+                    }
+                    return cards
+                }.forEach { (cards: [UIViewController]) in
+                    cards.forEach {
+                        listViewController.appendViewController($0, animated: false)
+                    }
+                }
+                self.isLoading = false
+            }
         }
     }
 
@@ -299,6 +325,40 @@ class CareViewController: OCKDailyPageViewController {
         } catch {
             Logger.feed.error("\(error.localizedDescription, privacy: .public)")
             return []
+        }
+    }
+
+    private func checkIfOnboardingIsComplete() async -> Bool {
+
+        var query = OCKOutcomeQuery()
+        query.taskIDs = [TaskID.onboarding]
+
+        // swiftlint:disable:next force_cast
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        guard let store = appDelegate.store else {
+            return false
+        }
+
+        do {
+            let outcomes = try await
+                store.fetchOutcomes(query: query)
+            return !outcomes.isEmpty
+        } catch {
+            return false
+        }
+
+    }
+}
+
+extension CareViewController: OCKSurveyTaskViewControllerDelegate {
+    func surveyTask(
+        viewController: OCKSurveyTaskViewController,
+        for task: OCKAnyTask,
+        didFinish result: Result<ORKTaskViewControllerFinishReason, Error>) {
+
+        if case let .success(reason) = result, reason == .completed {
+            reload()
         }
     }
 }

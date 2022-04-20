@@ -236,13 +236,13 @@ class CareViewController: OCKDailyPageViewController {
                 eventQuery: OCKEventQuery(for: date),
                 storeManager: self.storeManager,
                 survey: Surveys.checkInSurvey(),
+                viewSynchronizer: SurveyViewSynchronizer(),
                 extractOutcome: Surveys.extractAnswersFromCheckInSurvey
             )
             checkInCard.surveyDelegate = self
             return [checkInCard]
 
         case TaskID.rangeOfMotionCheck:
-
             let rangeOfMotionCheckCard =
                 OCKSurveyTaskViewController(
                 taskID: TaskID.rangeOfMotionCheck,
@@ -388,6 +388,7 @@ extension CareViewController: OCKSurveyTaskViewControllerDelegate {
             reload()
         }
     }
+
 }
 
 private extension View {

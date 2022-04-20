@@ -229,6 +229,30 @@ class CareViewController: OCKDailyPageViewController {
     private func taskViewController(for task: OCKAnyTask,
                                     on date: Date) -> [UIViewController]? {
         switch task.id {
+        case TaskID.checkIn:
+            let checkInCard =
+                OCKSurveyTaskViewController(
+                taskID: TaskID.checkIn,
+                eventQuery: OCKEventQuery(for: date),
+                storeManager: self.storeManager,
+                survey: Surveys.checkInSurvey(),
+                extractOutcome: Surveys.extractAnswersFromCheckInSurvey
+            )
+            checkInCard.surveyDelegate = self
+            return [checkInCard]
+            
+        case TaskID.rangeOfMotionCheck:
+            let checkInCard =
+                OCKSurveyTaskViewController(
+                taskID: TaskID.rangeOfMotionCheck,
+                eventQuery: OCKEventQuery(for: date),
+                storeManager: self.storeManager,
+                survey: Surveys.rangeOfMotionCheck(),
+                extractOutcome: Surveys.extractRangeOfMotionOutcome
+            )
+            checkInCard.surveyDelegate = self
+            return [checkInCard]
+            
         case TaskID.steps:
             let view = LinkView(title: Text("Meal Links"),
                                 detail: Text("Websites for good, healthy recipes!"),
@@ -328,6 +352,7 @@ class CareViewController: OCKDailyPageViewController {
         }
     }
 
+    @MainActor
     private func checkIfOnboardingIsComplete() async -> Bool {
 
         var query = OCKOutcomeQuery()
@@ -337,6 +362,7 @@ class CareViewController: OCKDailyPageViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
         guard let store = appDelegate.store else {
+            Logger.feed.error("CareKit store couldn't be unwrapped")
             return false
         }
 

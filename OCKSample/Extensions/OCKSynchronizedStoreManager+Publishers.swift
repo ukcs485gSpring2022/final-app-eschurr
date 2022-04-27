@@ -92,6 +92,41 @@ extension OCKSynchronizedStoreManager {
         return OCKAnyEvent(task: task, outcome: keepOutcome ? outcome : nil, scheduleEvent: scheduleEvent)
     }
 
+    // MARK: Contacts
+    func contactsPublisher(categories: [OCKStoreNotificationCategory]) -> AnyPublisher<OCKAnyContact, Never> {
+        return AnyPublisher(notificationPublisher
+            .compactMap { $0 as? OCKContactNotification }
+            .filter { categories.contains($0.category) }
+            .map { $0.contact })
+    }
+
+    func publisher(forContactID id: String,
+                   categories: [OCKStoreNotificationCategory]) -> AnyPublisher<OCKAnyContact, Never> {
+        return notificationPublisher
+            .compactMap { $0 as? OCKContactNotification }
+            .filter { $0.contact.id == id && categories.contains($0.category) }
+            .map { $0.contact }
+            .eraseToAnyPublisher()
+    }
+
+    func publisher(forContact contact: OCKAnyContact,
+                   categories: [OCKStoreNotificationCategory],
+                   fetchImmediately: Bool = true) -> AnyPublisher<OCKAnyContact, Never> {
+        let presentValuePublisher = Future<OCKAnyContact, Never>({ completion in
+            self.store.fetchAnyContact(withID: contact.id) { result in
+                completion(.success((try? result.get()) ?? contact))
+            }
+        })
+
+        let changePublisher = notificationPublisher
+            .compactMap { $0 as? OCKContactNotification }
+            .filter { $0.contact.id == contact.id && categories.contains($0.category) }
+            .map { $0.contact }
+
+        // swiftlint:disable:next line_length
+        return fetchImmediately ? AnyPublisher(changePublisher.prepend(presentValuePublisher)) : AnyPublisher(changePublisher)
+    }
+
     // MARK: Events
 
     func publisher(forEvent event: OCKAnyEvent,

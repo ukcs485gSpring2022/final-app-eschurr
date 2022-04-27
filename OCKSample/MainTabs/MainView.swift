@@ -80,6 +80,7 @@ struct MainView: View {
             }
         }
         .environmentObject(userStatus)
+        .environmentObject(profileViewModel)
         .statusBar(hidden: true)
         .accentColor(Color(tintColor))
         .careKitStyle(Style())

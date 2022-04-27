@@ -35,6 +35,8 @@ struct User: ParseUser {
 
     var userTypeUUIDs: [String: UUID]?
 
+    var profilePicture: ParseFile?
+
     func merge(with object: Self) throws -> Self {
         var updated = try mergeParse(with: object)
         if updated.shouldRestoreKey(\.lastTypeSelected,
@@ -44,6 +46,10 @@ struct User: ParseUser {
         if updated.shouldRestoreKey(\.userTypeUUIDs,
                                      original: object) {
             updated.userTypeUUIDs = object.userTypeUUIDs
+        }
+        if updated.shouldRestoreKey(\.profilePicture,
+                                     original: object) {
+            updated.profilePicture = object.profilePicture
         }
         return updated
     }

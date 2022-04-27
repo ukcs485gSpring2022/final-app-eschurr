@@ -16,7 +16,16 @@ import ParseCareKit
 
 extension OCKStore {
 
-    func addCarePlansIfNotPresent(_ carePlans: [OCKCarePlan]) async throws {
+    /**
+         Adds an `OCKCarePlan`*asynchronously*  to `OCKStore` if it has not been added already.
+
+         - parameter carePlans: The array of `OCKCarePlan`'s to be added to the `OCKStore`.
+         - parameter patientUUID: The uuid of the `OCKPatient` to tie to the `OCKCarePlan`. Defaults to nil.
+         - throws: An error if there was a problem adding the missing `OCKCarePlan`'s.
+         - note: `OCKCarePlan`'s that have an existing `id` will not be added and will not cause errors to be thrown.
+    */
+    func addCarePlansIfNotPresent(_ carePlans: [OCKCarePlan],
+                                  patientUUID: UUID? = nil) async throws {
         let carePlanIdsToAdd = carePlans.compactMap { $0.id }
 
         // Prepare query to see if carePlans are already added
@@ -29,7 +38,10 @@ extension OCKStore {
         // Check results to see if there's a missing carePlan
         carePlans.forEach { potentialCarePlan in
             if foundCarePlans.first(where: { $0.id == potentialCarePlan.id }) == nil {
-                carePlansNotInStore.append(potentialCarePlan)
+                var mutableCarePlan = potentialCarePlan
+                mutableCarePlan.patientUUID = patientUUID
+                carePlansNotInStore.append(mutableCarePlan)
+
             }
         }
 
@@ -121,16 +133,20 @@ extension OCKStore {
         }
     }
 
-    func populateCarePlans() async throws {
+    func populateCarePlans(_ patientUUID: UUID? = nil) async throws {
         let checkInCarePlan = OCKCarePlan(id: CarePlanID.checkIn.rawValue,
                                           title: "Check In",
                                           patientUUID: nil)
+        let healthCarePlan = OCKCarePlan(id: CarePlanID.health.rawValue,
+                                          title: "Health",
+                                          patientUUID: nil)
 
-        try await addCarePlansIfNotPresent([checkInCarePlan])
+        try await addCarePlansIfNotPresent([checkInCarePlan, healthCarePlan],
+                                           patientUUID: patientUUID)
     }
 
     // Adds tasks and contacts into the store
-    func populateSampleData() async throws {
+    func populateSampleData(_ patientUUID: UUID? = nil) async throws {
 
         try await populateCarePlans()
         let carePlanUUIDs = try await Self.getCarePlanUUIDs()

@@ -14,22 +14,59 @@ import ParseCareKit
 import UIKit
 import os.log
 import Combine
+import ParseSwift
+
+// swiftlint:disable type_body_length
 
 class ProfileViewModel: ObservableObject {
 
     @Published var patient: OCKPatient?
+    @Published var contact: OCKContact?
+    @Published var sex: OCKBiologicalSex = .other("unspecified")
+    @Published var isShowingSaveAlert = false
     @Published var isLoggedOut = false {
         willSet {
             if newValue {
                 error = nil
                 patient = nil
+                contact = nil
+                sex = .other("unspecified")
                 clearSubscriptions()
             }
         }
     }
     @Published public internal(set) var error: Error?
+    @Published var profileUIImage = UIImage(systemName: "person.fill") {
+        willSet {
+            guard self.profileUIImage != newValue,
+                let inputImage = newValue else {
+                return
+            }
+
+            if !settingProfilePictureForFirstTime {
+                guard var user = User.current?.mergeable,
+                      let image = inputImage.jpegData(compressionQuality: 0.25) else {
+                    return
+                }
+
+                let newProfilePicture = ParseFile(name: "profile.jpg", data: image)
+                user.profilePicture = newProfilePicture
+                let userToSave = user
+                Task {
+                    do {
+                        _ = try await userToSave.save()
+                        Logger.profile.info("Saved updated profile picture successfully.")
+                    } catch {
+                        Logger.profile.error("Couldn't save profile picture: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
+    }
+
     private(set) var storeManager: OCKSynchronizedStoreManager?
     private var cancellables: Set<AnyCancellable> = []
+    private var settingProfilePictureForFirstTime = true
 
     init() {
         reloadViewModel()
@@ -63,6 +100,31 @@ class ProfileViewModel: ObservableObject {
     }
 
     @MainActor
+    private func fetchProfilePicture() async throws {
+
+         // Profile pics are stored in Parse User.
+        guard let currentUser = try await User.current?.fetch() else {
+            Logger.profile.error("User isn't logged in")
+            return
+        }
+
+        if let pictureFile = currentUser.profilePicture {
+
+            // Download picture from server
+            do {
+                let profilePicture = try await pictureFile.fetch()
+                guard let path = profilePicture.localURL?.relativePath else {
+                    return
+                }
+                self.profileUIImage = UIImage(contentsOfFile: path)
+            } catch {
+                Logger.profile.error("Couldn't fetch profile picture: \(error.localizedDescription).")
+            }
+        }
+        self.settingProfilePictureForFirstTime = false
+    }
+
+    @MainActor
     private func findAndObserveCurrentProfile() async {
 
         guard let uuid = Self.getRemoteClockUUIDAfterLoginFromLocalStorage() else {
@@ -86,6 +148,20 @@ class ProfileViewModel: ObservableObject {
                 return
             }
             self.observePatient(currentPatient)
+
+            // Query the contact also so the user can edit
+            var queryForCurrentContact = OCKContactQuery(for: Date())
+            queryForCurrentContact.ids = [uuid.uuidString]
+
+            guard let foundContact = try await appDelegate.store?.fetchContacts(query: queryForCurrentContact),
+                let currentContact = foundContact.first else {
+                // swiftlint:disable:next line_length
+                Logger.profile.error("Error: Couldn't find contact with id \"\(uuid)\". It's possible they have never been saved.")
+                return
+            }
+            self.observeContact(currentContact)
+
+            try? await fetchProfilePicture()
         } catch {
             // swiftlint:disable:next line_length
             Logger.profile.error("Error: Couldn't find patient with id \"\(uuid)\". It's possible they have never been saved. Query error: \(error.localizedDescription)")
@@ -98,6 +174,16 @@ class ProfileViewModel: ObservableObject {
         storeManager?.publisher(forPatient: patient, categories: [.add, .update, .delete])
             .sink { [weak self] in
                 self?.patient = $0 as? OCKPatient
+            }
+            .store(in: &cancellables)
+    }
+
+    @MainActor
+    private func observeContact(_ contact: OCKContact) {
+
+        storeManager?.publisher(forContact: contact, categories: [.add, .update, .delete])
+            .sink { [weak self] in
+                self?.contact = $0 as? OCKContact
             }
             .store(in: &cancellables)
     }
@@ -150,8 +236,13 @@ class ProfileViewModel: ObservableObject {
 
     // MARK: User intentions
     @MainActor
-    func saveProfile(_ first: String, last: String, birth: Date) async throws {
+    func saveProfile(_ first: String,
+                     last: String,
+                     birth: Date,
+                     sex: OCKBiologicalSex,
+                     note: String) async throws {
 
+        isShowingSaveAlert = true // Make alert pop up for user.
         if var patientToUpdate = patient {
             // If there is a currentPatient that was fetched, check to see if any of the fields changed
 
@@ -170,6 +261,17 @@ class ProfileViewModel: ObservableObject {
             if patient?.birthday != birth {
                 patientHasBeenUpdated = true
                 patientToUpdate.birthday = birth
+            }
+
+            if patient?.sex != sex {
+                patientHasBeenUpdated = true
+                patientToUpdate.sex = sex
+            }
+
+            let notes = [OCKNote(author: first, title: "my note", content: note)]
+            if patient?.notes != notes {
+                patientHasBeenUpdated = true
+                patientToUpdate.notes = notes
             }
 
             if patientHasBeenUpdated {
@@ -203,6 +305,72 @@ class ProfileViewModel: ObservableObject {
     }
 
     @MainActor
+    func saveContact(_ street: String,
+                     city: String,
+                     state: String,
+                     zipcode: String) async throws {
+
+        /*
+         TODo: Be sure to this methods to save changes properly to OCKContact.
+         */
+
+        guard let remoteUUID = Self.getRemoteClockUUIDAfterLoginFromLocalStorage()?.uuidString else {
+            Logger.profile.error("Error: The user currently isn't logged in")
+            isLoggedOut = true
+            return
+        }
+
+        if var contactToUpdate = contact {
+            // If there is a currentContact that was fetched, check to see if any of the fields changed
+
+            var contactHasBeenUpdated = false
+
+            // Since OCKPatient was updated earlier, we should compare against this name
+            if let patientName = patient?.name,
+                contact?.name != patient?.name {
+                contactHasBeenUpdated = true
+                contactToUpdate.name = patientName
+            }
+
+            // Create a mutable temp address to compare
+            let potentialAddress = OCKPostalAddress()
+            potentialAddress.street = street
+            potentialAddress.city = city
+            potentialAddress.state = state
+            potentialAddress.postalCode = zipcode
+
+            if contact?.address != potentialAddress {
+                contactHasBeenUpdated = true
+                contactToUpdate.address = potentialAddress
+            }
+
+            if contactHasBeenUpdated {
+                let updated = try await storeManager?.store.updateAnyContact(contactToUpdate)
+                Logger.profile.info("Successfully updated contact")
+                guard let updatedContact = updated as? OCKContact else {
+                    return
+                }
+                self.contact = updatedContact
+            }
+
+        } else {
+
+            guard let patientName = self.patient?.name else {
+                Logger.profile.info("The patient didn't have a name.")
+                return
+            }
+
+            // Added code to create a contact for the respective signed up user
+            let newContact = OCKContact(id: remoteUUID,
+                                        name: patientName,
+                                        carePlanUUID: nil)
+
+            // This is new contact that has never been saved before
+            _ = try await storeManager?.store.addAnyContact(newContact)
+        }
+    }
+
+    @MainActor
     static func savePatientAfterSignUp(_ type: UserType, first: String, last: String) async throws -> OCKPatient {
 
         let remoteUUID = UUID()
@@ -232,8 +400,16 @@ class ProfileViewModel: ObservableObject {
             throw AppError.couldntCast
         }
 
+        // Added code to create a contact for the respective signed up user
+        let newContact = OCKContact(id: remoteUUID.uuidString,
+                                    name: newPatient.name,
+                                    carePlanUUID: nil)
+
+        // This is new contact that has never been saved before
+        _ = try await storeManager.store.addAnyContact(newContact)
+
         try await appDelegate.store?.populateSampleData()
-        try await appDelegate.healthKitStore.populateSampleData()
+        try await appDelegate.healthKitStore.populateSampleData(patient.uuid)
         appDelegate.parseRemote.automaticallySynchronizes = true
 
         // Post notification to sync

@@ -27,6 +27,7 @@
 		7036E4D3256EBE35006E9A3C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7036E4D2256EBE35006E9A3C /* MainView.swift */; };
 		7036E517256F2413006E9A3C /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7036E516256F2413006E9A3C /* ProfileViewModel.swift */; };
 		7036E64025717F85006E9A3C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7036E63F25717F85006E9A3C /* Constants.swift */; };
+		70791A4328173744006DE9B3 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70791A4228173744006DE9B3 /* ImagePicker.swift */; };
 		707CC714254DA91900116728 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 707CC70F254DA91900116728 /* Localizable.strings */; };
 		707CC715254DA91900116728 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 707CC70F254DA91900116728 /* Localizable.strings */; };
 		707CC716254DA91900116728 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 707CC711254DA91900116728 /* Localizable.stringsdict */; };
@@ -47,6 +48,7 @@
 		70A98D68278A2DF1009B58F2 /* TintColorKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918FDEC2271B4E950045A0EF /* TintColorKey.swift */; };
 		70C0D474279BA492003DA141 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91693821271B897200A634ED /* Utility.swift */; };
 		70DFD80B2567074500B9DB12 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BD2B1E254B44DB0030B424 /* LoginView.swift */; };
+		70DFF6532819B2D00079D498 /* OCKBiologicalSex+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DFF6522819B2D00079D498 /* OCKBiologicalSex+Hashable.swift */; };
 		70F03A912786073300E5AFB4 /* CareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F03A902786073300E5AFB4 /* CareViewModel.swift */; };
 		70F03A932786087800E5AFB4 /* OCKAnyEvent+CustomStringConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F03A922786087800E5AFB4 /* OCKAnyEvent+CustomStringConvertable.swift */; };
 		70F03A952786093B00E5AFB4 /* OCKHealthKitPassthroughStore+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F03A942786093B00E5AFB4 /* OCKHealthKitPassthroughStore+Default.swift */; };
@@ -205,6 +207,7 @@
 		7036E516256F2413006E9A3C /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		7036E63F25717F85006E9A3C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		705B22BE25E2C1A700C472AC /* OCKWatchSample Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "OCKWatchSample Extension.entitlements"; sourceTree = "<group>"; };
+		70791A4228173744006DE9B3 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		707CC710254DA91900116728 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		707CC712254DA91900116728 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		707CC713254DA91900116728 /* OCKLocalization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OCKLocalization.swift; sourceTree = "<group>"; };
@@ -216,6 +219,7 @@
 		7098235928109B4B000E8AAB /* SurveyViewSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewSynchronizer.swift; sourceTree = "<group>"; };
 		7098235B2810A09E000E8AAB /* CustomContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomContactsViewController.swift; sourceTree = "<group>"; };
 		70BD2B1E254B44DB0030B424 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		70DFF6522819B2D00079D498 /* OCKBiologicalSex+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OCKBiologicalSex+Hashable.swift"; sourceTree = "<group>"; };
 		70F03A902786073300E5AFB4 /* CareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareViewModel.swift; sourceTree = "<group>"; };
 		70F03A922786087800E5AFB4 /* OCKAnyEvent+CustomStringConvertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OCKAnyEvent+CustomStringConvertable.swift"; sourceTree = "<group>"; };
 		70F03A942786093B00E5AFB4 /* OCKHealthKitPassthroughStore+Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OCKHealthKitPassthroughStore+Default.swift"; sourceTree = "<group>"; };
@@ -366,6 +370,7 @@
 			children = (
 				7036E4C8256E1A6F006E9A3C /* ProfileView.swift */,
 				7036E516256F2413006E9A3C /* ProfileViewModel.swift */,
+				70791A4228173744006DE9B3 /* ImagePicker.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -477,6 +482,7 @@
 				70F03AA027860AB700E5AFB4 /* OCKOutcome+default.swift */,
 				70F03AA227860AFF00E5AFB4 /* OCKPatient+Parse.swift */,
 				7083A855279CA40A00B3832E /* PCKUtility+extention.swift */,
+				70DFF6522819B2D00079D498 /* OCKBiologicalSex+Hashable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -863,6 +869,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7440E4F229477F7007AD30A /* CareViewController.swift in Sources */,
+				70791A4328173744006DE9B3 /* ImagePicker.swift in Sources */,
 				918FDEB5271B40590045A0EF /* Installation.swift in Sources */,
 				70F03AB62788C80500E5AFB4 /* UserStatus.swift in Sources */,
 				70F921AC27CABE3000368CEC /* SessionDelegate.swift in Sources */,
@@ -876,6 +883,7 @@
 				70F03AA827860E7700E5AFB4 /* FontColorKey.swift in Sources */,
 				9169381B271B64E100A634ED /* Style.swift in Sources */,
 				70F921A827CA9A3A00368CEC /* CustomStyleKey.swift in Sources */,
+				70DFF6532819B2D00079D498 /* OCKBiologicalSex+Hashable.swift in Sources */,
 				70158CB728105F3900E9438A /* Surveys.swift in Sources */,
 				9169381D271B650700A634ED /* ColorStyle.swift in Sources */,
 				E72B2C0A226939E3009A9438 /* AppDelegate.swift in Sources */,

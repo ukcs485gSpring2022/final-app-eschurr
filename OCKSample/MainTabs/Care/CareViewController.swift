@@ -38,7 +38,6 @@ import CareKitUI
 import os.log
 import ResearchKit
 
-// swiftlint:disable type_body_length
 class CareViewController: OCKDailyPageViewController {
 
     private var isSyncing = false
@@ -299,7 +298,7 @@ class CareViewController: OCKDailyPageViewController {
                                                storeManager: self.storeManager)]
 
         // Create a card for the doxylamine task if there are events for it on this day.
-        case TaskID.doxylamine:
+        /*case TaskID.doxylamine:
 
             return [OCKChecklistTaskViewController(
                 task: task,
@@ -351,7 +350,7 @@ class CareViewController: OCKDailyPageViewController {
                                                             eventQuery: .init(for: date),
                                                             storeManager: self.storeManager)
             cards.append(nauseaCard)
-            return cards
+            return cards*/
 
         default:
             return nil

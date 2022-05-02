@@ -229,6 +229,15 @@ class CareViewController: OCKDailyPageViewController {
     private func taskViewController(for task: OCKAnyTask,
                                     on date: Date) -> [UIViewController]? {
         switch task.id {
+
+        // create a card for intermittent casting
+        case TaskID.fasting:
+
+            return [OCKChecklistTaskViewController(
+                task: task,
+                eventQuery: .init(for: date),
+                storeManager: self.storeManager)]
+
         case TaskID.checkIn:
             let checkInCard =
                 OCKSurveyTaskViewController(

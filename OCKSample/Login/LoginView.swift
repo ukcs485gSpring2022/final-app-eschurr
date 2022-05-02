@@ -31,18 +31,18 @@ struct LoginView: View {
 
         VStack {
 
-            Text("SurelyFit")
+           /* Text("SurelyFit")
                 .font(.largeTitle) // These are modifiers of the text view
                 .foregroundColor(.white)
-                .padding([.top], 40)
+                .padding([.top], 40)*/
 
-            Image("logo.jpg") // Change this image to something that represents your application
+            Image("newLogo.jpg") // Change this image to something that represents your application
                 .resizable()
                 .frame(width: 150, height: 150, alignment: .center)
-                .clipShape(Circle())
-                .overlay(Circle().stroke(Color(.white), lineWidth: 4))
+                /*.clipShape(Circle())
+                .overlay(Circle().stroke(Color(.white), lineWidth: 4))*/
                 .shadow(radius: 10)
-                .padding()
+                .padding([.top], 100)
                 .layoutPriority(-100)
             // swiftlint:disable:next line_length
             // Example of how to do the picker here: https://www.swiftkickmobile.com/creating-a-segmented-control-in-swiftui/

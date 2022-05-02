@@ -229,6 +229,15 @@ class CareViewController: OCKDailyPageViewController {
     private func taskViewController(for task: OCKAnyTask,
                                     on date: Date) -> [UIViewController]? {
         switch task.id {
+
+        // create a card for intermittent casting
+        case TaskID.fasting:
+
+            return [OCKChecklistTaskViewController(
+                task: task,
+                eventQuery: .init(for: date),
+                storeManager: self.storeManager)]
+
         case TaskID.checkIn:
             let checkInCard =
                 OCKSurveyTaskViewController(
@@ -254,7 +263,7 @@ class CareViewController: OCKDailyPageViewController {
             rangeOfMotionCheckCard.surveyDelegate = self
             return [rangeOfMotionCheckCard]
 
-        case TaskID.steps:
+        case TaskID.mealLinks:
             let view = LinkView(title: Text("Meal Links"),
                                 detail: Text("Websites for good, healthy recipes!"),
                                 instructions: nil,
@@ -267,6 +276,16 @@ class CareViewController: OCKDailyPageViewController {
                 .careKitStyle(CustomStyleKey.defaultValue)
 
             return [view.formattedHostingController()]
+
+        case TaskID.steps:
+                    let view = NumericProgressTaskView(
+                        task: task,
+                        eventQuery: OCKEventQuery(for: date),
+                        storeManager: self.storeManager)
+                        .padding([.vertical], 20)
+                        .careKitStyle(CustomStyleKey.defaultValue)
+
+                    return [view.formattedHostingController()]
         case TaskID.stretch:
             return [OCKInstructionsTaskViewController(task: task,
                                                      eventQuery: .init(for: date),

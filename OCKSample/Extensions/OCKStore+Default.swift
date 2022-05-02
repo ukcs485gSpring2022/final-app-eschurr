@@ -155,6 +155,8 @@ extension OCKStore {
         let aFewDaysAgo = Calendar.current.date(byAdding: .day, value: -4, to: thisMorning)!
         let beforeBreakfast = Calendar.current.date(byAdding: .hour, value: 8, to: aFewDaysAgo)!
         let afterLunch = Calendar.current.date(byAdding: .hour, value: 14, to: aFewDaysAgo)!
+        let lunchTime = Calendar.current.date(byAdding: .hour, value: 12, to: aFewDaysAgo)!
+        let dinnerTime = Calendar.current.date(byAdding: .hour, value: 18, to: aFewDaysAgo)!
 
         let schedule = OCKSchedule(composing: [
             OCKScheduleElement(start: beforeBreakfast, end: nil,
@@ -164,10 +166,23 @@ extension OCKStore {
                                interval: DateComponents(day: 2))
         ])
 
-        var doxylamine = OCKTask(id: TaskID.doxylamine, title: "Take Doxylamine",
+        let fastingSchedule = OCKSchedule(composing: [
+            OCKScheduleElement(start: lunchTime, end: nil,
+                               interval: DateComponents(day: 1)),
+
+            OCKScheduleElement(start: dinnerTime, end: nil,
+                               interval: DateComponents(day: 2))
+        ])
+
+        var doxylamine = OCKTask(id: TaskID.doxylamine, title: "Take ",
                                  carePlanUUID: nil, schedule: schedule)
         doxylamine.instructions = "Take 25mg of doxylamine when you experience nausea."
         doxylamine.asset = "pills.fill"
+
+        var fasting = OCKTask(id: TaskID.fasting, title: "Intermittent Fasting",
+                                 carePlanUUID: nil, schedule: fastingSchedule)
+        fasting.instructions = "Only eat during an 8 hour window to help weight loss."
+        fasting.asset = "meals.fill"
 
         let nauseaSchedule = OCKSchedule(composing: [
             OCKScheduleElement(start: beforeBreakfast, end: nil, interval: DateComponents(day: 1),
@@ -194,7 +209,7 @@ extension OCKStore {
         stretch.impactsAdherence = true
         stretch.asset = "figure.walk"
 
-        try await addTasksIfNotPresent([nausea, doxylamine, kegels, stretch])
+        try await addTasksIfNotPresent([nausea, doxylamine, kegels, stretch, fasting])
         try await addOnboardingTask()
         try await addCheckInSurvey()
 

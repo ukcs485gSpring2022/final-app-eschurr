@@ -79,16 +79,19 @@ enum TaskID {
     static let onboarding = "onboarding"
     static let checkIn = "checkIn"
     static let rangeOfMotionCheck = "rangeOfMotionCheck"
+    static let mealLinks = "mealLinks"
 
     static var ordered: [String] {
         [Self.steps,
+         Self.mealLinks,
+         Self.fasting,
          Self.checkIn,
          Self.rangeOfMotionCheck,
          Self.doxylamine,
          Self.kegels,
          Self.stretch,
-         Self.nausea,
-         Self.fasting]
+         Self.nausea
+         ]
     }
 }
 

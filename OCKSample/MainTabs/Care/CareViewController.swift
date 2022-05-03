@@ -226,19 +226,19 @@ class CareViewController: OCKDailyPageViewController {
         }
     }
 
+    // swiftlint:disable cyclomatic_complexity
     private func taskViewController(for task: OCKAnyTask,
                                     on date: Date) -> [UIViewController]? {
+
         switch task.id {
 
         case TaskID.vitamins:
-
             return [OCKChecklistTaskViewController(
                 task: task,
                 eventQuery: .init(for: date),
                 storeManager: self.storeManager)]
 
         case TaskID.water:
-
             return[OCKButtonLogTaskViewController(
                 task: task,
                 eventQuery: .init(for: date),
@@ -285,6 +285,21 @@ class CareViewController: OCKDailyPageViewController {
                                         .website("https://www.allrecipes.com/recipes/84/healthy-recipes/", title: "All Recipes"),
                                         .website("https://www.eatingwell.com/recipes/", title: "Eating Well"),
                                         .website("https://healthyrecipesblogs.com", title: "Healthy Recipes")])
+                .padding([.vertical], 20)
+                .careKitStyle(CustomStyleKey.defaultValue)
+            return [view.formattedHostingController()]
+
+        case TaskID.workoutLinks:
+            let view = LinkView(title: Text("Workout Links"),
+                                detail: Text("Ideas for workouts you could do!"),
+                                instructions: nil,
+                                links:
+                                    // swiftlint:disable:next line_length
+                                    [.website("https://www.muscleandfitness.com/workout-plan/workouts/workout-routines/complete-mf-beginners-training-guide-plan/", title: "Beginner Lifting Plan"),
+                                     // swiftlint:disable:next line_length
+                                        .website("https://greatist.com/fitness/best-cardio-workouts", title: "Cardio Workouts"),
+                                     // swiftlint:disable:next line_length
+                                        .website("https://www.fatherly.com/health-science/best-damn-bodyweight-workout/", title: "Bodyweight Workouts")])
                 .padding([.vertical], 20)
                 .careKitStyle(CustomStyleKey.defaultValue)
             return [view.formattedHostingController()]
@@ -369,6 +384,7 @@ class CareViewController: OCKDailyPageViewController {
             return nil
         }
     }
+    // swiftlint:enable cyclomatic_complexity
 
     private func fetchTasks(on date: Date) async -> [OCKAnyTask] {
         var query = OCKTaskQuery(for: date)

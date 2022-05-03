@@ -44,6 +44,9 @@ extension OCKHealthKitPassthroughStore {
 
     func populateSampleData(_ patientUUID: UUID? = nil) async throws {
 
+        let carePlanUUIDs = try await OCKStore.getCarePlanUUIDs()
+        var tasks = [OCKHealthKitTask]()
+
         let schedule = OCKSchedule.dailyAtTime(
             hour: 8, minutes: 0, start: Date(), end: nil, text: nil,
             duration: .hours(12), targetValues: [OCKOutcomeValue(2000.0, units: "Steps")])
@@ -58,6 +61,8 @@ extension OCKHealthKitPassthroughStore {
                 quantityType: .cumulative,
                 unit: .count()))
         steps.asset = "figure.walk"
-        try await addTasksIfNotPresent([steps])
+
+        tasks.append(contentsOf: [steps])
+        try await addTasksIfNotPresent(tasks)
     }
 }

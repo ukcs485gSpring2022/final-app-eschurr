@@ -237,11 +237,17 @@ class CareViewController: OCKDailyPageViewController {
                 eventQuery: .init(for: date),
                 storeManager: self.storeManager)]
 
+        case TaskID.water:
+
+            return[OCKButtonLogTaskViewController(
+                task: task,
+                eventQuery: .init(for: date),
+                storeManager: self.storeManager)]
+
         // create a card for intermittent fasting
         case TaskID.fasting:
-
-            return [OCKChecklistTaskViewController(
-                task: task,
+            return [OCKGridTaskViewController(
+                taskID: TaskID.fasting,
                 eventQuery: .init(for: date),
                 storeManager: self.storeManager)]
 

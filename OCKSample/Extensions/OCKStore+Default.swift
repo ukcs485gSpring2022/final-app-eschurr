@@ -187,13 +187,21 @@ extension OCKStore {
 
         var fasting = OCKTask(id: TaskID.fasting, title: "Intermittent Fasting",
                                  carePlanUUID: nil, schedule: fastingSchedule)
-        fasting.instructions = "Only eat during an 8 hour window to help weight loss."
+        // swiftlint:disable line_length
+        fasting.instructions = "Only eat during an 8 hour window to help weight loss. Try to eat only between noon and 8PM!"
         fasting.asset = "meals.fill"
 
         var vitamins = OCKTask(id: TaskID.vitamins, title: "Take your vitamins every morning!",
                                carePlanUUID: nil, schedule: vitaminsSchedule)
         vitamins.instructions = "Take your multivitamin every morning to promote general health."
         vitamins.asset = "vitamins.fill"
+
+
+        var water = OCKTask(id: TaskID.water, title: "Water", carePlanUUID: nil, schedule: vitaminsSchedule)
+
+        // swiftlint:disable line_length
+        water.instructions = "Drinking water is important for fitness. Log every time you drink a cup of water. Try to drink at least 11 cups every day!"
+        water.asset = "water.fill"
 
         /*let nauseaSchedule = OCKSchedule(composing: [
             OCKScheduleElement(start: beforeBreakfast, end: nil, interval: DateComponents(day: 1),
@@ -220,7 +228,9 @@ extension OCKStore {
         stretch.impactsAdherence = true
         stretch.asset = "figure.walk"
 
-        try await addTasksIfNotPresent([/*nausea, doxylamine,*/ kegels, stretch, fasting, vitamins])
+
+        try await addTasksIfNotPresent([/*nausea, doxylamine,*/ kegels, stretch, fasting, vitamins, water])
+
         try await addOnboardingTask()
         try await addCheckInSurvey()
 

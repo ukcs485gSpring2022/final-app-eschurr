@@ -82,12 +82,14 @@ enum TaskID {
     static let mealLinks = "mealLinks"
     static let vitamins = "vitamins"
     static let water = "water"
+    static let workoutLinks = "workoutLinks"
 
     static var ordered: [String] {
         [Self.vitamins,
          Self.water,
          Self.steps,
          Self.mealLinks,
+         Self.workoutLinks,
          Self.fasting,
          Self.checkIn,
          Self.rangeOfMotionCheck,

@@ -73,7 +73,18 @@ extension OCKHealthKitPassthroughStore {
                 unit: .count()))
         mealLinks.asset = "figure.meals"
 
-        tasks.append(contentsOf: [steps, mealLinks])
+        var workoutLinks = OCKHealthKitTask(
+            id: TaskID.workoutLinks,
+            title: "workoutLinks",
+            carePlanUUID: nil,
+            schedule: schedule,
+            healthKitLinkage: OCKHealthKitLinkage(
+                quantityIdentifier: .stepCount,
+                quantityType: .cumulative,
+                unit: .count()))
+        workoutLinks.asset = "figure.workout"
+
+        tasks.append(contentsOf: [steps, mealLinks, workoutLinks])
         try await addTasksIfNotPresent(tasks)
     }
 }

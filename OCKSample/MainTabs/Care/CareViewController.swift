@@ -230,7 +230,14 @@ class CareViewController: OCKDailyPageViewController {
                                     on date: Date) -> [UIViewController]? {
         switch task.id {
 
-        // create a card for intermittent casting
+        case TaskID.vitamins:
+
+            return [OCKChecklistTaskViewController(
+                task: task,
+                eventQuery: .init(for: date),
+                storeManager: self.storeManager)]
+
+        // create a card for intermittent fasting
         case TaskID.fasting:
 
             return [OCKChecklistTaskViewController(
@@ -299,7 +306,7 @@ class CareViewController: OCKDailyPageViewController {
                                                storeManager: self.storeManager)]
 
         // Create a card for the doxylamine task if there are events for it on this day.
-        case TaskID.doxylamine:
+        /*case TaskID.doxylamine:
 
             return [OCKChecklistTaskViewController(
                 task: task,
@@ -351,7 +358,7 @@ class CareViewController: OCKDailyPageViewController {
                                                             eventQuery: .init(for: date),
                                                             storeManager: self.storeManager)
             cards.append(nauseaCard)
-            return cards
+            return cards*/
 
         default:
             return nil

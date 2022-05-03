@@ -158,7 +158,7 @@ struct LoginView: View {
             }
         })
         .onAppear(perform: {
-            UISegmentedControl.appearance().selectedSegmentTintColor = .blue
+            UISegmentedControl.appearance().selectedSegmentTintColor = .systemMint
             UISegmentedControl.appearance().backgroundColor = .lightGray
         })
         .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)),

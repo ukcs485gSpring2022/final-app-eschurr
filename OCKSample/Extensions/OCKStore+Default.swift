@@ -158,13 +158,13 @@ extension OCKStore {
         let lunchTime = Calendar.current.date(byAdding: .hour, value: 12, to: aFewDaysAgo)!
         let dinnerTime = Calendar.current.date(byAdding: .hour, value: 18, to: aFewDaysAgo)!
 
-        let schedule = OCKSchedule(composing: [
+        /*let schedule = OCKSchedule(composing: [
             OCKScheduleElement(start: beforeBreakfast, end: nil,
                                interval: DateComponents(day: 1)),
 
             OCKScheduleElement(start: afterLunch, end: nil,
                                interval: DateComponents(day: 2))
-        ])
+        ])*/
 
         let fastingSchedule = OCKSchedule(composing: [
             OCKScheduleElement(start: lunchTime, end: nil,
@@ -174,17 +174,28 @@ extension OCKStore {
                                interval: DateComponents(day: 2))
         ])
 
-        var doxylamine = OCKTask(id: TaskID.doxylamine, title: "Take ",
+        let vitaminsSchedule = OCKSchedule(composing: [
+            OCKScheduleElement(start: beforeBreakfast, end: nil,
+                               interval: DateComponents(day: 1))
+
+        ])
+
+        /*var doxylamine = OCKTask(id: TaskID.doxylamine, title: "Take ",
                                  carePlanUUID: nil, schedule: schedule)
         doxylamine.instructions = "Take 25mg of doxylamine when you experience nausea."
-        doxylamine.asset = "pills.fill"
+        doxylamine.asset = "pills.fill"*/
 
         var fasting = OCKTask(id: TaskID.fasting, title: "Intermittent Fasting",
                                  carePlanUUID: nil, schedule: fastingSchedule)
         fasting.instructions = "Only eat during an 8 hour window to help weight loss."
         fasting.asset = "meals.fill"
 
-        let nauseaSchedule = OCKSchedule(composing: [
+        var vitamins = OCKTask(id: TaskID.vitamins, title: "Take your vitamins every morning!",
+                               carePlanUUID: nil, schedule: vitaminsSchedule)
+        vitamins.instructions = "Take your multivitamin every morning to promote general health."
+        vitamins.asset = "vitamins.fill"
+
+        /*let nauseaSchedule = OCKSchedule(composing: [
             OCKScheduleElement(start: beforeBreakfast, end: nil, interval: DateComponents(day: 1),
                                text: "Anytime throughout the day", targetValues: [], duration: .allDay)
             ])
@@ -195,7 +206,7 @@ extension OCKStore {
                              schedule: nauseaSchedule)
         nausea.impactsAdherence = false
         nausea.instructions = "Tap the button below anytime you experience nausea."
-        nausea.asset = "bed.double"
+        nausea.asset = "bed.double"*/
 
         let kegelElement = OCKScheduleElement(start: beforeBreakfast, end: nil, interval: DateComponents(day: 2))
         let kegelSchedule = OCKSchedule(composing: [kegelElement])
@@ -209,7 +220,7 @@ extension OCKStore {
         stretch.impactsAdherence = true
         stretch.asset = "figure.walk"
 
-        try await addTasksIfNotPresent([nausea, doxylamine, kegels, stretch, fasting])
+        try await addTasksIfNotPresent([/*nausea, doxylamine,*/ kegels, stretch, fasting, vitamins])
         try await addOnboardingTask()
         try await addCheckInSurvey()
 

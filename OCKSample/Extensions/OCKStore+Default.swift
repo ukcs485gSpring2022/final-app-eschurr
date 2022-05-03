@@ -196,6 +196,7 @@ extension OCKStore {
         vitamins.instructions = "Take your multivitamin every morning to promote general health."
         vitamins.asset = "vitamins.fill"
 
+
         var water = OCKTask(id: TaskID.water, title: "Water", carePlanUUID: nil, schedule: vitaminsSchedule)
 
         // swiftlint:disable line_length
@@ -227,7 +228,9 @@ extension OCKStore {
         stretch.impactsAdherence = true
         stretch.asset = "figure.walk"
 
+
         try await addTasksIfNotPresent([/*nausea, doxylamine,*/ kegels, stretch, fasting, vitamins, water])
+
         try await addOnboardingTask()
         try await addCheckInSurvey()
 

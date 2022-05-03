@@ -24,12 +24,12 @@ final class SurveyViewSynchronizer: OCKSurveyTaskViewSynchronizer {
      if let event = context.viewModel.first?.first, event.outcome != nil {
          view.instructionsLabel.isHidden = false
 
-         let pain = event.answer(kind: Surveys.checkInPainItemIdentifier)
-         let sleep = event.answer(kind: Surveys.checkInSleepItemIdentifier)
+         let sore = event.answer(kind: Surveys.checkInSoreItemIdentifier)
+         let hunger = event.answer(kind: Surveys.checkInHungerItemIdentifier)
 
          view.instructionsLabel.text = """
-             Pain: \(Int(pain))
-             Sleep: \(Int(sleep)) hours
+             Sore: \(Int(sore))
+             Hunger: \(Int(hunger))
              """
      } else {
          view.instructionsLabel.isHidden = true

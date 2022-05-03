@@ -40,7 +40,6 @@
 		7098234F2810828E000E8AAB /* StoreKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098234E2810828E000E8AAB /* StoreKey.swift */; };
 		7098235428108737000E8AAB /* Surveys+CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235328108737000E8AAB /* Surveys+CheckIn.swift */; };
 		7098235628108789000E8AAB /* OCKAnyEvent+Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235528108789000E8AAB /* OCKAnyEvent+Answer.swift */; };
-		7098235828109B35000E8AAB /* Cards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235728109B35000E8AAB /* Cards.swift */; };
 		7098235A28109B4B000E8AAB /* SurveyViewSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235928109B4B000E8AAB /* SurveyViewSynchronizer.swift */; };
 		7098235C2810A09E000E8AAB /* CustomContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7098235B2810A09E000E8AAB /* CustomContactsViewController.swift */; };
 		70A98D62278A2683009B58F2 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169381A271B64E100A634ED /* Style.swift */; };
@@ -215,7 +214,6 @@
 		7098234E2810828E000E8AAB /* StoreKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKey.swift; sourceTree = "<group>"; };
 		7098235328108737000E8AAB /* Surveys+CheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Surveys+CheckIn.swift"; sourceTree = "<group>"; };
 		7098235528108789000E8AAB /* OCKAnyEvent+Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OCKAnyEvent+Answer.swift"; sourceTree = "<group>"; };
-		7098235728109B35000E8AAB /* Cards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cards.swift; sourceTree = "<group>"; };
 		7098235928109B4B000E8AAB /* SurveyViewSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewSynchronizer.swift; sourceTree = "<group>"; };
 		7098235B2810A09E000E8AAB /* CustomContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomContactsViewController.swift; sourceTree = "<group>"; };
 		70BD2B1E254B44DB0030B424 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -345,8 +343,7 @@
 				7036E4D2256EBE35006E9A3C /* MainView.swift */,
 				7030887D258272F400FFABB6 /* Contact */,
 				7030887C258272E700FFABB6 /* Profile */,
-				7098235728109B35000E8AAB /* Cards.swift */,
-				7098235928109B4B000E8AAB /* SurveyViewSynchronizer.swift */,
+				7046EDC22821E0FD009D0CE5 /* Cards */,
 			);
 			path = MainTabs;
 			sourceTree = "<group>";
@@ -391,6 +388,14 @@
 				70BD2B1E254B44DB0030B424 /* LoginView.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		7046EDC22821E0FD009D0CE5 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				7098235928109B4B000E8AAB /* SurveyViewSynchronizer.swift */,
+			);
+			path = Cards;
 			sourceTree = "<group>";
 		};
 		707CC70E254DA91900116728 /* Localization */ = {
@@ -898,7 +903,6 @@
 				7036E4D3256EBE35006E9A3C /* MainView.swift in Sources */,
 				918FDEC5271B4EA70045A0EF /* StoreManagerKey.swift in Sources */,
 				7098234F2810828E000E8AAB /* StoreKey.swift in Sources */,
-				7098235828109B35000E8AAB /* Cards.swift in Sources */,
 				91693822271B897200A634ED /* Utility.swift in Sources */,
 				7098235628108789000E8AAB /* OCKAnyEvent+Answer.swift in Sources */,
 				707CC718254DA91900116728 /* OCKLocalization.swift in Sources */,

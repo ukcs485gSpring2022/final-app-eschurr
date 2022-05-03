@@ -38,6 +38,7 @@ import CareKitUI
 import os.log
 import ResearchKit
 
+// swiftlint:disable type_body_length
 class CareViewController: OCKDailyPageViewController {
 
     private var isSyncing = false
@@ -229,7 +230,14 @@ class CareViewController: OCKDailyPageViewController {
                                     on date: Date) -> [UIViewController]? {
         switch task.id {
 
-        // create a card for intermittent casting
+        case TaskID.vitamins:
+
+            return [OCKChecklistTaskViewController(
+                task: task,
+                eventQuery: .init(for: date),
+                storeManager: self.storeManager)]
+
+        // create a card for intermittent fasting
         case TaskID.fasting:
 
             return [OCKChecklistTaskViewController(

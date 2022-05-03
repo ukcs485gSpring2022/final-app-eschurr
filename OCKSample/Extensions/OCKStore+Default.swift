@@ -174,6 +174,12 @@ extension OCKStore {
                                interval: DateComponents(day: 2))
         ])
 
+        let vitaminsSchedule = OCKSchedule(composing: [
+            OCKScheduleElement(start: beforeBreakfast, end: nil,
+                               interval: DateComponents(day: 1))
+
+        ])
+
         /*var doxylamine = OCKTask(id: TaskID.doxylamine, title: "Take ",
                                  carePlanUUID: nil, schedule: schedule)
         doxylamine.instructions = "Take 25mg of doxylamine when you experience nausea."
@@ -183,6 +189,11 @@ extension OCKStore {
                                  carePlanUUID: nil, schedule: fastingSchedule)
         fasting.instructions = "Only eat during an 8 hour window to help weight loss."
         fasting.asset = "meals.fill"
+
+        var vitamins = OCKTask(id: TaskID.vitamins, title: "Take your vitamins every morning!",
+                               carePlanUUID: nil, schedule: vitaminsSchedule)
+        vitamins.instructions = "Take your multivitamin every morning to promote general health."
+        vitamins.asset = "vitamins.fill"
 
         /*let nauseaSchedule = OCKSchedule(composing: [
             OCKScheduleElement(start: beforeBreakfast, end: nil, interval: DateComponents(day: 1),
@@ -209,7 +220,7 @@ extension OCKStore {
         stretch.impactsAdherence = true
         stretch.asset = "figure.walk"
 
-        try await addTasksIfNotPresent([/*nausea, doxylamine,*/ kegels, stretch, fasting])
+        try await addTasksIfNotPresent([/*nausea, doxylamine,*/ kegels, stretch, fasting, vitamins])
         try await addOnboardingTask()
         try await addCheckInSurvey()
 

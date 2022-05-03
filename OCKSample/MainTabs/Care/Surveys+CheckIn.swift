@@ -13,51 +13,51 @@ extension Surveys {
 // MARK: Check-in Survey
     static let checkInIdentifier = "checkin"
     static let checkInFormIdentifier = "checkin.form"
-    static let checkInPainItemIdentifier = "checkin.form.pain"
-    static let checkInSleepItemIdentifier = "checkin.form.sleep"
+    static let checkInSoreItemIdentifier = "checkin.form.sore"
+    static let checkInHungerItemIdentifier = "checkin.form.hunger"
 
     static func checkInSurvey() -> ORKTask {
 
-        let painAnswerFormat = ORKAnswerFormat.scale(
+        let soreAnswerFormat = ORKAnswerFormat.scale(
             withMaximumValue: 10,
             minimumValue: 1,
             defaultValue: 0,
             step: 1,
             vertical: false,
-            maximumValueDescription: "Very painful",
-            minimumValueDescription: "No pain"
+            maximumValueDescription: "Very sore",
+            minimumValueDescription: "Not sore"
         )
 
-        let painItem = ORKFormItem(
-            identifier: checkInPainItemIdentifier,
-            text: "How would you rate your pain?",
-            answerFormat: painAnswerFormat
+        let soreItem = ORKFormItem(
+            identifier: checkInSoreItemIdentifier,
+            text: "How would you rate your soreness?",
+            answerFormat: soreAnswerFormat
         )
-        painItem.isOptional = false
+        soreItem.isOptional = false
 
-        let sleepAnswerFormat = ORKAnswerFormat.scale(
-            withMaximumValue: 12,
+        let hungerAnswerFormat = ORKAnswerFormat.scale(
+            withMaximumValue: 10,
             minimumValue: 0,
             defaultValue: 0,
             step: 1,
             vertical: false,
-            maximumValueDescription: nil,
-            minimumValueDescription: nil
+            maximumValueDescription: "Very hungry",
+            minimumValueDescription: "Not hungry"
         )
 
-        let sleepItem = ORKFormItem(
-            identifier: checkInSleepItemIdentifier,
-            text: "How many hours of sleep did you get last night?",
-            answerFormat: sleepAnswerFormat
+        let hungerItem = ORKFormItem(
+            identifier: checkInHungerItemIdentifier,
+            text: "How hungry were you during your fasting hours yesterday?",
+            answerFormat: hungerAnswerFormat
         )
-        sleepItem.isOptional = false
+        hungerItem.isOptional = false
 
         let formStep = ORKFormStep(
             identifier: checkInFormIdentifier,
             title: "Check In",
             text: "Please answer the following questions."
         )
-        formStep.formItems = [painItem, sleepItem]
+        formStep.formItems = [soreItem, hungerItem]
         formStep.isOptional = false
 
         let surveyTask = ORKOrderedTask(
@@ -79,25 +79,25 @@ extension Surveys {
             let scaleResults = response
                 .results?.compactMap({ $0 as? ORKScaleQuestionResult }),
 
-            let painAnswer = scaleResults
-                .first(where: { $0.identifier == checkInPainItemIdentifier })?
+            let soreAnswer = scaleResults
+                .first(where: { $0.identifier == checkInSoreItemIdentifier })?
                 .scaleAnswer,
 
-            let sleepAnswer = scaleResults
-                .first(where: { $0.identifier == checkInSleepItemIdentifier })?
+            let hungerAnswer = scaleResults
+                .first(where: { $0.identifier == checkInHungerItemIdentifier })?
                 .scaleAnswer
         else {
             assertionFailure("Failed to extract answers from check in survey!")
             return nil
         }
 
-        var painValue = OCKOutcomeValue(Double(truncating: painAnswer))
-        painValue.kind = checkInPainItemIdentifier
+        var soreValue = OCKOutcomeValue(Double(truncating: soreAnswer))
+        soreValue.kind = checkInSoreItemIdentifier
 
-        var sleepValue = OCKOutcomeValue(Double(truncating: sleepAnswer))
-        sleepValue.kind = checkInSleepItemIdentifier
+        var hungerValue = OCKOutcomeValue(Double(truncating: hungerAnswer))
+        hungerValue.kind = checkInHungerItemIdentifier
 
-        return [painValue, sleepValue]
+        return [soreValue, hungerValue]
     }
 
     // MARK: Range of Motion.

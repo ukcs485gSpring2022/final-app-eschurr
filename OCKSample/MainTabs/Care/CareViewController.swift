@@ -280,14 +280,13 @@ class CareViewController: OCKDailyPageViewController {
             let view = LinkView(title: Text("Meal Links"),
                                 detail: Text("Websites for good, healthy recipes!"),
                                 instructions: nil,
-                                links: [.website("https://allthehealthythings.com", title: "All The Healthy Things")])
-            /*NumericProgressTaskView(
-                task: task,
-                eventQuery: OCKEventQuery(for: date),
-                storeManager: self.storeManager)*/
+                                links: [.website("https://allthehealthythings.com", title: "All The Healthy Things"),
+                                        // swiftlint:disable:next line_length
+                                        .website("https://www.allrecipes.com/recipes/84/healthy-recipes/", title: "All Recipes"),
+                                        .website("https://www.eatingwell.com/recipes/", title: "Eating Well"),
+                                        .website("https://healthyrecipesblogs.com", title: "Healthy Recipes")])
                 .padding([.vertical], 20)
                 .careKitStyle(CustomStyleKey.defaultValue)
-
             return [view.formattedHostingController()]
 
         case TaskID.steps:

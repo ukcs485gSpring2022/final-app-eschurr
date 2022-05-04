@@ -28,6 +28,9 @@
 		7036E517256F2413006E9A3C /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7036E516256F2413006E9A3C /* ProfileViewModel.swift */; };
 		7036E64025717F85006E9A3C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7036E63F25717F85006E9A3C /* Constants.swift */; };
 		7046EDC82821F107009D0CE5 /* CustomFeaturedTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7046EDC72821F107009D0CE5 /* CustomFeaturedTaskView.swift */; };
+		7046EDD328220E23009D0CE5 /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7046EDD228220E22009D0CE5 /* InsightsView.swift */; };
+		7046EDD528220E4F009D0CE5 /* InsightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7046EDD428220E4E009D0CE5 /* InsightsViewController.swift */; };
+		7046EDD728220EF1009D0CE5 /* InsightsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7046EDD628220EF1009D0CE5 /* InsightsViewModel.swift */; };
 		70791A4328173744006DE9B3 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70791A4228173744006DE9B3 /* ImagePicker.swift */; };
 		707CC714254DA91900116728 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 707CC70F254DA91900116728 /* Localizable.strings */; };
 		707CC715254DA91900116728 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 707CC70F254DA91900116728 /* Localizable.strings */; };
@@ -207,6 +210,9 @@
 		7036E516256F2413006E9A3C /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		7036E63F25717F85006E9A3C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7046EDC72821F107009D0CE5 /* CustomFeaturedTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFeaturedTaskView.swift; sourceTree = "<group>"; };
+		7046EDD228220E22009D0CE5 /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
+		7046EDD428220E4E009D0CE5 /* InsightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsViewController.swift; sourceTree = "<group>"; };
+		7046EDD628220EF1009D0CE5 /* InsightsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsViewModel.swift; sourceTree = "<group>"; };
 		705B22BE25E2C1A700C472AC /* OCKWatchSample Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "OCKWatchSample Extension.entitlements"; sourceTree = "<group>"; };
 		70791A4228173744006DE9B3 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		707CC710254DA91900116728 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -340,6 +346,7 @@
 		703088772582727500FFABB6 /* MainTabs */ = {
 			isa = PBXGroup;
 			children = (
+				7046EDCE28220D0F009D0CE5 /* Insights */,
 				91693819271B64CB00A634ED /* Stylers */,
 				70308878258272CD00FFABB6 /* Care */,
 				7036E4D2256EBE35006E9A3C /* MainView.swift */,
@@ -399,6 +406,16 @@
 				7098235928109B4B000E8AAB /* SurveyViewSynchronizer.swift */,
 			);
 			path = Cards;
+			sourceTree = "<group>";
+		};
+		7046EDCE28220D0F009D0CE5 /* Insights */ = {
+			isa = PBXGroup;
+			children = (
+				7046EDD228220E22009D0CE5 /* InsightsView.swift */,
+				7046EDD428220E4E009D0CE5 /* InsightsViewController.swift */,
+				7046EDD628220EF1009D0CE5 /* InsightsViewModel.swift */,
+			);
+			path = Insights;
 			sourceTree = "<group>";
 		};
 		707CC70E254DA91900116728 /* Localization */ = {
@@ -893,10 +910,12 @@
 				9169381B271B64E100A634ED /* Style.swift in Sources */,
 				70F921A827CA9A3A00368CEC /* CustomStyleKey.swift in Sources */,
 				70DFF6532819B2D00079D498 /* OCKBiologicalSex+Hashable.swift in Sources */,
+				7046EDD528220E4F009D0CE5 /* InsightsViewController.swift in Sources */,
 				70158CB728105F3900E9438A /* Surveys.swift in Sources */,
 				9169381D271B650700A634ED /* ColorStyle.swift in Sources */,
 				E72B2C0A226939E3009A9438 /* AppDelegate.swift in Sources */,
 				7036E4C4256E0A48006E9A3C /* CareView.swift in Sources */,
+				7046EDD728220EF1009D0CE5 /* InsightsViewModel.swift in Sources */,
 				70F921B027CABED600368CEC /* LocalSyncSessionDelegate.swift in Sources */,
 				70158CB928105FC300E9438A /* Consent.swift in Sources */,
 				70F03A932786087800E5AFB4 /* OCKAnyEvent+CustomStringConvertable.swift in Sources */,
@@ -916,6 +935,7 @@
 				70F03A9927860A0800E5AFB4 /* OCKSynchronizedStoreManager+Publishers.swift in Sources */,
 				70F03AB82788C82C00E5AFB4 /* ProfileViewModelKey.swift in Sources */,
 				03F0600A2331946600CCE09B /* SceneDelegate.swift in Sources */,
+				7046EDD328220E23009D0CE5 /* InsightsView.swift in Sources */,
 				70F03ABB2789071400E5AFB4 /* CareViewModel.swift in Sources */,
 				7036E4C9256E1A6F006E9A3C /* ProfileView.swift in Sources */,
 				7083A856279CA40A00B3832E /* PCKUtility+extention.swift in Sources */,

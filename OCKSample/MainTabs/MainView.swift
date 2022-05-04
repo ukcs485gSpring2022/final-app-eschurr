@@ -49,6 +49,20 @@ struct MainView: View {
                         .navigationBarTitle("")
                         .navigationBarHidden(true)
 
+                    InsightsView()
+                        .tabItem {
+                            if selectedTab == 0 {
+                                Image(systemName: "chart.pie.fill")
+                                    .renderingMode(.template)
+                             } else {
+                                 Image(systemName: "chart.pie")
+                                     .renderingMode(.template)
+                             }
+                         }
+                         .tag(1)
+                         .navigationBarTitle("")
+                         .navigationBarHidden(true)
+
                     ContactView()
                         .tabItem {
                             if selectedTab == 1 {
@@ -59,7 +73,7 @@ struct MainView: View {
                                     .renderingMode(.template)
                             }
                         }
-                        .tag(1)
+                        .tag(2)
                         .navigationBarTitle("")
                         .navigationBarHidden(true)
 
@@ -73,7 +87,7 @@ struct MainView: View {
                                     .renderingMode(.template)
                             }
                         }
-                        .tag(2)
+                        .tag(3)
                         .navigationBarTitle("")
                         .navigationBarHidden(true)
                 }

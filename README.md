@@ -16,7 +16,9 @@ Add the public link to your YouTube or video posted elsewhere.
 -->
 To learn more about this application, watch the video below:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/d_3NYs5H5JA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=d_3NYs5H5JA
+" target="_blank"><img src="http://img.youtube.com/vi/d_3NYs5H5JA/0.jpg" 
+alt="SurelyFit Demo Video" width="240" height="180" border="10" /></a>
 
 ### Designed for the following users
 <!--

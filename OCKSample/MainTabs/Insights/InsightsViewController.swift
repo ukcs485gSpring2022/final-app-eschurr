@@ -78,28 +78,64 @@
          }
      }
 
-     /*
-      TODo: Plot all of your tasks in this method. Note that you can combine multiple
-      tasks into one chart (like the Nausea/Doxlymine chart if they are related.
-     */
-
      func taskViewController(for task: OCKAnyTask,
                              on date: Date) -> [UIViewController]? {
          switch task.id {
+
+         case TaskID.vitamins:
+
+             let vitaminsGradientStart = GraphColorKey.defaultValue
+             let vitaminsGradientEnd = TintColorKey.defaultValue
+
+             let vitaminDataSeries = OCKDataSeriesConfiguration(
+                 taskID: TaskID.vitamins,
+                 legendTitle: "Vitamins",
+                 gradientStartColor: vitaminsGradientStart,
+                 gradientEndColor: vitaminsGradientEnd,
+                 markerSize: 5,
+                 eventAggregator: eventAggregatorMean)
+
+             let insightsCard = OCKCartesianChartViewController(
+                 plotType: .scatter,
+                 selectedDate: date,
+                 configurations: [vitaminDataSeries],
+                 storeManager: self.storeManager)
+
+             insightsCard.chartView.headerView.titleLabel.text = "Did you take your mulitvitamin?"
+             insightsCard.chartView.headerView.detailLabel.text = "This Week"
+             insightsCard.chartView.headerView.accessibilityLabel = "Vitamin usage, this week"
+
+             return [insightsCard]
+
+         case TaskID.water:
+
+             let waterGradientStart = GraphColorKey.defaultValue
+             let waterGradientEnd = TintColorKey.defaultValue
+
+             let waterDataSeries = OCKDataSeriesConfiguration(
+                 taskID: TaskID.water,
+                 legendTitle: "Water",
+                 gradientStartColor: waterGradientStart,
+                 gradientEndColor: waterGradientEnd,
+                 markerSize: 5,
+                 eventAggregator: eventAggregatorMean)
+
+             let insightsCard = OCKCartesianChartViewController(
+                 plotType: .line,
+                 selectedDate: date,
+                 configurations: [waterDataSeries],
+                 storeManager: self.storeManager)
+
+             insightsCard.chartView.headerView.titleLabel.text = "Average cups of water"
+             insightsCard.chartView.headerView.detailLabel.text = "This Week"
+             insightsCard.chartView.headerView.accessibilityLabel = "Water intake, this week"
+
+             return [insightsCard]
+
          case TaskID.checkIn:
 
-             /*
-              TODo: For checkInGradientStart, make another Environment
-              object similar to TintColorKey and use it instead of
-              creating a color for checkInGradientStart everytime.
-              Your new Environment object should be placed in the correct
-              folder.
-              */
-
              // dynamic gradient colors
-             let checkInGradientStart = UIColor { traitCollection -> UIColor in
-                 return traitCollection.userInterfaceStyle == .light ? #colorLiteral(red: 0.06253327429, green: 0.6597633362, blue: 0.8644603491, alpha: 1) : #colorLiteral(red: 0, green: 0.2858072221, blue: 0.6897063851, alpha: 1)
-             }
+             let checkInGradientStart = GraphColorKey.defaultValue
              let checkInGradientEnd = TintColorKey.defaultValue
 
              /*

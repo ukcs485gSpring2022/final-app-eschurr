@@ -23,7 +23,6 @@ import CareKit
 
      convenience init(url: String, imageOverlayStyle: UIUserInterfaceStyle = .unspecified) {
          self.init(imageOverlayStyle: imageOverlayStyle) // This calls your local init
-         // tODO: 1 - Need to turn the url string into a real URL using URL(string: String)
          self.url = URL(string: url)
          // Need to become a delegate so we know when view is tapped.
          self.delegate = self

@@ -158,13 +158,13 @@ extension OCKStore {
         let lunchTime = Calendar.current.date(byAdding: .hour, value: 12, to: aFewDaysAgo)!
         let dinnerTime = Calendar.current.date(byAdding: .hour, value: 18, to: aFewDaysAgo)!
 
-        /*let schedule = OCKSchedule(composing: [
+        let schedule = OCKSchedule(composing: [
             OCKScheduleElement(start: beforeBreakfast, end: nil,
                                interval: DateComponents(day: 1)),
 
             OCKScheduleElement(start: afterLunch, end: nil,
                                interval: DateComponents(day: 2))
-        ])*/
+        ])
 
         let fastingSchedule = OCKSchedule(composing: [
             OCKScheduleElement(start: lunchTime, end: nil,
@@ -180,10 +180,10 @@ extension OCKStore {
 
         ])
 
-        /*var doxylamine = OCKTask(id: TaskID.doxylamine, title: "Take ",
+        var doxylamine = OCKTask(id: TaskID.doxylamine, title: "Take ",
                                  carePlanUUID: nil, schedule: schedule)
         doxylamine.instructions = "Take 25mg of doxylamine when you experience nausea."
-        doxylamine.asset = "pills.fill"*/
+        doxylamine.asset = "pills.fill"
 
         var fasting = OCKTask(id: TaskID.fasting, title: "Intermittent Fasting",
                                  carePlanUUID: nil, schedule: fastingSchedule)
@@ -202,7 +202,7 @@ extension OCKStore {
         water.instructions = "Drinking water is important for fitness. Log every time you drink a cup of water. Try to drink at least 11 cups every day!"
         water.asset = "water.fill"
 
-        /*let nauseaSchedule = OCKSchedule(composing: [
+        let nauseaSchedule = OCKSchedule(composing: [
             OCKScheduleElement(start: beforeBreakfast, end: nil, interval: DateComponents(day: 1),
                                text: "Anytime throughout the day", targetValues: [], duration: .allDay)
             ])
@@ -213,7 +213,7 @@ extension OCKStore {
                              schedule: nauseaSchedule)
         nausea.impactsAdherence = false
         nausea.instructions = "Tap the button below anytime you experience nausea."
-        nausea.asset = "bed.double"*/
+        nausea.asset = "bed.double"
 
         let kegelElement = OCKScheduleElement(start: beforeBreakfast, end: nil, interval: DateComponents(day: 2))
         let kegelSchedule = OCKSchedule(composing: [kegelElement])

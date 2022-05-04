@@ -157,78 +157,78 @@ struct ProfileView: View {
             ImagePicker(image: $profileViewModel.profileUIImage)
         }
         .onReceive(profileViewModel.$patient, perform: { patient in
-                    // TODo: Be sure to update this list so changes are reflected in the view.
-                    if let currentFirstName = patient?.name.givenName {
-                        firstName = currentFirstName
-                    } else {
-                        /*
-                         Else statements are default for when the view resets. For example,
-                         when you logout and then login as a different user.
-                         */
-                        firstName = ""
-                    }
+            // TODo: Be sure to update this list so changes are reflected in the view.
+            if let currentFirstName = patient?.name.givenName {
+                firstName = currentFirstName
+            } else {
+                /*
+                 Else statements are default for when the view resets. For example,
+                 when you logout and then login as a different user.
+                 */
+                firstName = ""
+            }
 
-                    if let currentLastName = patient?.name.familyName {
-                        lastName = currentLastName
-                    } else {
-                        lastName = ""
-                    }
+            if let currentLastName = patient?.name.familyName {
+                lastName = currentLastName
+            } else {
+                lastName = ""
+            }
 
-                    if let currentBirthday = patient?.birthday {
-                        birthday = currentBirthday
-                    } else {
-                        birthday = Calendar.current.date(byAdding: .year, value: -20, to: Date())!
-                    }
+            if let currentBirthday = patient?.birthday {
+                birthday = currentBirthday
+            } else {
+                birthday = Calendar.current.date(byAdding: .year, value: -20, to: Date())!
+            }
 
-                    if let currentNote = patient?.notes?.first?.content {
-                        note = currentNote
-                    } else {
-                        note = ""
-                    }
+            if let currentNote = patient?.notes?.first?.content {
+                note = currentNote
+            } else {
+                note = ""
+            }
 
-                    if let currentSex = patient?.sex {
-                        sex = currentSex
-                    } else {
-                        sex = OCKBiologicalSex.other("unspecified")
-                    }
-                })
-                .onReceive(profileViewModel.$contact, perform: { contact in
-                    // TODo: Be sure to update this list so changes are reflected in the view.
-                    if let currentStreet = contact?.address?.street {
-                        street = currentStreet
-                    } else {
-                        street = ""
-                    }
+            if let currentSex = patient?.sex {
+                sex = currentSex
+            } else {
+                sex = OCKBiologicalSex.other("unspecified")
+            }
+        })
+        .onReceive(profileViewModel.$contact, perform: { contact in
+            // TODo: Be sure to update this list so changes are reflected in the view.
+            if let currentStreet = contact?.address?.street {
+                street = currentStreet
+            } else {
+                street = ""
+            }
 
-                    if let currentCity = contact?.address?.city {
-                        city = currentCity
-                    } else {
-                        city = ""
-                    }
+            if let currentCity = contact?.address?.city {
+                city = currentCity
+            } else {
+                city = ""
+            }
 
-                    if let currentState = contact?.address?.state {
-                        state = currentState
-                    } else {
-                        state = ""
-                    }
+            if let currentState = contact?.address?.state {
+                state = currentState
+            } else {
+                state = ""
+            }
 
-                    if let currentZipcode = contact?.address?.postalCode {
-                        zipcode = currentZipcode
-                    } else {
-                        zipcode = ""
-                    }
-                })
-                .alert(isPresented: $profileViewModel.isShowingSaveAlert) {
-                    return Alert(title: Text("Update"),
-                                 message: Text("All changs saved successfully!"),
-                                 dismissButton: .default(Text("Ok"), action: {
-                                    profileViewModel.isShowingSaveAlert = false
-                                    self.presentationMode.wrappedValue.dismiss()
-                                 }))
-                }.onReceive(profileViewModel.$isLoggedOut, perform: { value in
+            if let currentZipcode = contact?.address?.postalCode {
+                zipcode = currentZipcode
+            } else {
+                zipcode = ""
+            }
+        })
+        .alert(isPresented: $profileViewModel.isShowingSaveAlert) {
+            return Alert(title: Text("Update"),
+                         message: Text("All changs saved successfully!"),
+                         dismissButton: .default(Text("Ok"), action: {
+                            profileViewModel.isShowingSaveAlert = false
+                            self.presentationMode.wrappedValue.dismiss()
+                         }))
+        }.onReceive(profileViewModel.$isLoggedOut, perform: { value in
             if self.userStatus.isLoggedOut != value {
                 self.userStatus.check()
-            }
+        }
         }).onAppear(perform: {
             profileViewModel.refreshViewIfNeeded()
         })

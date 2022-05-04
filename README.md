@@ -8,7 +8,7 @@ Name of your final project
 <!--
 Give a short description on what your project accomplishes and what tools is uses. Basically, what problems does it solve and why it's different from other apps in the app store.
 -->
-My project is built for users who want to get healthy. When I have been trying to lose weight and get stronger at the same time, it’s been frustrating to have to use two separate apps. You'd need one app for working out, then have to use another app that provides features like entering meals and tracking nutrients. The idea for this app is to combine both of those into one single app to use seamlessly together and make your weight loss/fitness/muscle gaining journey much easier and less confusing. More importantly, it will help people understand how those two things can go hand in hand.
+My project attempts to combine a unique diet plan (intermittent fasting) with other elements of important health routines, such as drinking water, taking vitamins, exercising, and more. Intermittent fasting while exercising is a proven and great way to lose weight fast, but it can be difficult without having a guide. This application takes all the different tools one would want to use to get fit and puts them all into one unique place.
 
 ### Demo Video
 <!--
@@ -24,7 +24,7 @@ alt="Sample demo video" width="240" height="180" border="10" /></a>
 <!--
 Describe the types of users your app is designed for and who will benefit from your app.
 -->
-
+My project is built for users who want to get healthy. When I have been trying to lose weight and get stronger at the same time, it’s been frustrating to have to use two separate apps. You'd need one app for working out, then have to use another app that provides features like entering meals and tracking nutrients. The idea for this app is to combine both of those into one single app to use seamlessly together and make your weight loss/fitness/muscle gaining journey much easier and less confusing. More importantly, it will help people understand how those two things can go hand in hand.
 <!--
 In addition, you can drop screenshots directly into your README file to add them to your README. Take these from your presentations.
 -->
@@ -55,7 +55,17 @@ ParseCareKit synchronizes the following entities to Parse tables/classes using [
 What features were added by you, this should be descriptions of features added from the [Code](https://uk.instructure.com/courses/2030626/assignments/11151475) and [Demo](https://uk.instructure.com/courses/2030626/assignments/11151413) parts of the final. Feel free to add any figures that may help describe a feature. Note that there should be information here about how the OCKTask/OCKHealthTask's and OCKCarePlan's you added pertain to your app.
 -->
 ## Contributions/Features
-
+- CustomFeaturedContentView that subclasses OCKFeaturedContentView, providing a link that explains to the user what Intermittent Fasting is, how to do it, and why it could be beneficial.
+- A check-on Research Kit survey displayed by OCKSurveyTaskViewController that asks the user about their soreness and hunger levels. Hopefully, as they continue the program, they should see that their day-to-day soreness and hunger slowly decrease as they get used to their routine.
+- OCKTask vitamins displayed by OCKChecklistTaskViewController to remind users to take their vitamins in the morning.
+- OCKTask water displayed by OCKButtonLogTaskViewController to have users log every cup of water drank throughout the day.
+- OCKTask fasting displayed by OCKGridTaskViewController to help users track their fasting habits and remind them when their meals should be eaten.
+- Range of motion check 
+- OCKTask exercise displayed by OCKSimpleTaskViewController that is used by the user to log thier 30+ minute exercise every day.
+- LinkViews for meal links and workout links the user can use for healthy meals and good workout plans.
+- New tab called "Insights" to MainTabView that displays graphs for the data the user is logging, such as soreness+hunger, vitamins, and water.
+- A searchable contact view and a profile view as a form.
+- Improved styling and custom logo.
 ## Final Checklist
 <!--
 This is from the checkist from the final [Code](https://uk.instructure.com/courses/2030626/assignments/11151475). You should mark completed items with an x and leave non-completed items empty
@@ -82,20 +92,21 @@ This is from the checkist from the final [Code](https://uk.instructure.com/cours
 - [x] Add a new tab called "Insights" to MainTabView
 - [x] Replace current ContactView with Searchable contact view
 - [x] Change the ProfileView to use a Form view
-- [ ] Add at least two OCKCarePlan's and tie them to their respective OCKTask's and OCContact's 
+- [x] Add at least two OCKCarePlan's and tie them to their respective OCKTask's and OCContact's 
 
 ## Wishlist features
 <!--
 Describe at least 3 features you want to add in the future before releasing your app in the app-store
 -->
-1. feature one
-2. feature two
-3. feature three
+1. Integration of workout plans and live workout guides into the application so users don't have to switch to another application to use a workout guide
+2. Integration of a meal database that can be displayed in the application that generates recipes for users
+3. Calorie tracking
 
 ## Challenges faced while developing
 <!--
 Describe any challenges you faced with learning Swift, your baseline app, or adding features. You can describe how you overcame them.
 -->
+This was one of the tougher programming projects I have worked on. The MVVM architectural pattern is not something I have used before, along with Swift, so the first few months invovled a lot of steep learning curves, followed by the last month or so trying to integrate all of it into a real-time application. Adding different OCKTasks/OCKHealthKit tasks and trying to remember everywhere that these interactions had to occur for it to display and store the data in my application was a definite challenge.
 
 ## Setup Your Parse Server
 

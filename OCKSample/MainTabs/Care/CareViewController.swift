@@ -316,9 +316,7 @@ class CareViewController: OCKDailyPageViewController {
                                                      eventQuery: .init(for: date),
                                                      storeManager: self.storeManager)]
 
-        case TaskID.kegels:
-            // Since the kegel task is only scheduled every other day, there will be cases
-            // where it is not contained in the tasks array returned from the query.
+        case TaskID.exercise:
             return [OCKSimpleTaskViewController(task: task,
                                                eventQuery: .init(for: date),
                                                storeManager: self.storeManager)]

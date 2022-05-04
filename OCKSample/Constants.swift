@@ -74,7 +74,7 @@ enum TaskID {
     static let doxylamine = "doxylamine"
     static let nausea = "nausea"
     static let stretch = "stretch"
-    static let kegels = "kegels"
+    static let exercise = "exercise"
     static let steps = "steps"
     static let fasting = "fasting"
     static let onboarding = "onboarding"
@@ -93,7 +93,7 @@ enum TaskID {
          Self.fasting,
          Self.rangeOfMotionCheck,
          Self.doxylamine,
-         Self.kegels,
+         Self.exercise,
          Self.stretch,
          Self.mealLinks,
          Self.workoutLinks,

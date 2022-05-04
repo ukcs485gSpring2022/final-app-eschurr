@@ -44,7 +44,7 @@ extension OCKHealthKitPassthroughStore {
 
     func populateSampleData(_ patientUUID: UUID? = nil) async throws {
 
-        let carePlanUUIDs_ = try await OCKStore.getCarePlanUUIDs()
+        _ = try await OCKStore.getCarePlanUUIDs()
         var tasks = [OCKHealthKitTask]()
 
         let schedule = OCKSchedule.dailyAtTime(

@@ -157,6 +157,7 @@ extension OCKStore {
         let afterLunch = Calendar.current.date(byAdding: .hour, value: 14, to: aFewDaysAgo)!
         let lunchTime = Calendar.current.date(byAdding: .hour, value: 12, to: aFewDaysAgo)!
         let dinnerTime = Calendar.current.date(byAdding: .hour, value: 18, to: aFewDaysAgo)!
+        let bedTime = Calendar.current.date(byAdding: .hour, value: 22, to: aFewDaysAgo)!
 
         let schedule = OCKSchedule(composing: [
             OCKScheduleElement(start: beforeBreakfast, end: nil,
@@ -180,6 +181,12 @@ extension OCKStore {
 
         ])
 
+        let waterSchedule = OCKSchedule(composing: [
+            OCKScheduleElement(start: thisMorning, end: nil,
+                               interval: DateComponents(day: 1))
+
+        ])
+
         var doxylamine = OCKTask(id: TaskID.doxylamine, title: "Take ",
                                  carePlanUUID: nil, schedule: schedule)
         doxylamine.instructions = "Take 25mg of doxylamine when you experience nausea."
@@ -196,7 +203,7 @@ extension OCKStore {
         vitamins.instructions = "Take your multivitamin every morning to promote general health."
         vitamins.asset = "vitamins.fill"
 
-        var water = OCKTask(id: TaskID.water, title: "Water", carePlanUUID: nil, schedule: vitaminsSchedule)
+        var water = OCKTask(id: TaskID.water, title: "Water", carePlanUUID: nil, schedule: waterSchedule)
 
         // swiftlint:disable line_length
         water.instructions = "Drinking water is important for fitness. Log every time you drink a cup of water. Try to drink at least 11 cups every day!"

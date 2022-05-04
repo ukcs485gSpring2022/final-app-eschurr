@@ -152,12 +152,6 @@
                  markerSize: 10,
                  eventAggregator: eventAggregatorMean)
 
-             /*
-              TODo: CareKit has 3 plotType's: .bar, .scatter, and .line.
-              You should have a 3 types in your InsightView meaning you
-              should have at least 3 charts. Remember that all of your
-              tasks need to be graphed so you may have more.
-              */
              let insightsCard = OCKCartesianChartViewController(
                  plotType: .bar,
                  selectedDate: date,

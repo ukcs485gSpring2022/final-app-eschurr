@@ -86,17 +86,17 @@ enum TaskID {
     static let workoutLinks = "workoutLinks"
 
     static var ordered: [String] {
-        [Self.vitamins,
+        [Self.checkIn,
+         Self.vitamins,
          Self.water,
          Self.steps,
-         Self.mealLinks,
-         Self.workoutLinks,
          Self.fasting,
-         Self.checkIn,
          Self.rangeOfMotionCheck,
          Self.doxylamine,
          Self.kegels,
          Self.stretch,
+         Self.mealLinks,
+         Self.workoutLinks,
          Self.nausea
          ]
     }

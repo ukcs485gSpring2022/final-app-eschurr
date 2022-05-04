@@ -10,6 +10,7 @@ import Foundation
 import CareKit
 import CareKitStore
 import ParseSwift
+import os.log
 
 enum AppError: Error {
     case couldntCast
@@ -115,3 +116,21 @@ enum UserType: String, Codable {
 enum InstallationChannel: String {
     case global
 }
+
+let eventAggregatorMean = OCKEventAggregator.custom { events -> Double in
+
+     let totalCompleted = Double(events.map { $0.outcome?.values.count ?? 0 }.reduce(0, +))
+
+     Logger.constants.debug("Total \(totalCompleted)")
+
+     let tempSumOfCompleted = events.compactMap { $0.outcome?.values.compactMap { $0.doubleValue ?? 0.0 }.reduce(0, +) }
+     Logger.constants.debug("TempSum \(tempSumOfCompleted)")
+     let sumOfCompleted = Double(tempSumOfCompleted.compactMap { $0 }.reduce(0, +))
+     Logger.constants.debug("Sum \(sumOfCompleted)")
+
+     if totalCompleted == 0 {
+         return Double(0)
+     } else {
+         return  sumOfCompleted / totalCompleted
+     }
+ }

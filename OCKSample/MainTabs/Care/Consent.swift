@@ -24,15 +24,16 @@ let informedConsentHTML = """
     </head>
     <body>
         <h1>Informed Consent</h1>
-        <h3>Study Expectations</h3>
+        <h3>Program Expectations</h3>
         <ul>
-            <li>You will be asked to complete various study tasks such as surveys.</li>
-            <li>The study will send you notifications to remind you to complete these study tasks.</li>
-            <li>You will be asked to share various health data types to support the study goals.</li>
-            <li>The study is expected to last 4 years.</li>
-            <li>The study may reach out to you for future research opportunities.</li>
+            <li>Hi! You've joined an exercise and diet program designed to help you lose weight and get in shape.</li>
+            <li>The program will provide you with various tasks to do.</li>
+            <li>The program will also send you notifications to remind you to complete these tasks.</li>
+            <li>You will be asked to share various health data types to support the program goals.</li>
+            <li>The study is expected to last until you feel comfortable with your health.</li>
+            <li>The program may reach out to you for future research opportunities.</li>
             <li>Your information will be kept private and secure.</li>
-            <li>You can withdraw from the study at any time.</li>
+            <li>You can withdraw from the program at any time.</li>
         </ul>
         <h3>Eligibility Requirements</h3>
         <ul>
@@ -41,7 +42,7 @@ let informedConsentHTML = """
             <li>Must be the only user of the device on which you are participating in the study.</li>
             <li>Must be able to sign your own consent form.</li>
         </ul>
-        <p>By signing below, I acknowledge that I have read this consent carefully, that I understand all of its terms, and that I enter into this study voluntarily. I understand that my information will only be used and disclosed for the purposes described in the consent and I can withdraw from the study at any time.</p>
+        <p>By signing below, I acknowledge that I have read this consent carefully, that I understand all of its terms, and that I enter into this program voluntarily. I understand that my information will only be used and disclosed for the purposes described in the consent and I can withdraw from the program at any time.</p>
         <p>Please sign using your finger below.</p>
     </body>
     </html>

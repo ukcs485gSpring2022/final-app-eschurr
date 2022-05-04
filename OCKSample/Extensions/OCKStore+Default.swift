@@ -188,7 +188,7 @@ extension OCKStore {
         var fasting = OCKTask(id: TaskID.fasting, title: "Intermittent Fasting",
                                  carePlanUUID: nil, schedule: fastingSchedule)
         // swiftlint:disable line_length
-        fasting.instructions = "Only eat during an 8 hour window to help weight loss. Try to eat only between noon and 8PM!"
+        fasting.instructions = "Only eat during an 8 hour window to help weight loss. Log your first meal and your second meal (lunch and dinner). Snacking is OK in between!"
         fasting.asset = "meals.fill"
 
         var vitamins = OCKTask(id: TaskID.vitamins, title: "Take your vitamins every morning!",

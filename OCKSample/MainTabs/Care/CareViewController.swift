@@ -192,15 +192,16 @@ class CareViewController: OCKDailyPageViewController {
             // Only show the tip view on the current date
             if isCurrentDay {
                 if Calendar.current.isDate(date, inSameDayAs: Date()) {
-                    // Add a non-CareKit view into the list
-                    let tipTitle = "Benefits of exercising"
-                    let tipText = "Learn how activity can promote a healthy pregnancy."
-                    let tipView = TipView()
-                    tipView.headerView.titleLabel.text = tipTitle
-                    tipView.headerView.detailLabel.text = tipText
-                    tipView.imageView.image = UIImage(named: "exercise.jpg")
-                    tipView.customStyle = CustomStyleKey.defaultValue
-                    listViewController.appendView(tipView, animated: false)
+                    // tODO: 2 - Replace with text that represents your app
+                    let tipTitle = "Why Intermittent Fasting and Exercising?"
+                    // tODO: 3 - Replace with an URL that reflects your app. Should be different than the original.
+                    // swiftlint:disable:next line_length
+                    let featuredContent = CustomFeaturedContentView(url: "https://www.healthline.com/health/how-to-exercise-safely-intermittent-fasting#exercising-and-fasting-safely")
+                    // tODO: 4 - Replace with an image that reflects your app. Should be different than the original.
+                    featuredContent.imageView.image = UIImage(named: "fastingexercising.jpg")
+                    featuredContent.label.text = tipTitle
+                    featuredContent.label.textColor = .white
+                    listViewController.appendView(featuredContent, animated: false)
                 }
             }
 

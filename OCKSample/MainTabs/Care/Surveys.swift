@@ -24,7 +24,7 @@ struct Surveys {
         )
 
         welcomeInstructionStep.title = "Welcome!"
-        welcomeInstructionStep.detailText = "Thank you for joining our study. Tap Next to learn more before signing up."
+        welcomeInstructionStep.detailText = "Thank you for joining our program! Tap Next to learn more before signing up."
         welcomeInstructionStep.image = UIImage(named: "welcome-image")
         welcomeInstructionStep.imageContentMode = .scaleAspectFill
 
@@ -37,7 +37,7 @@ struct Surveys {
         studyOverviewInstructionStep.iconImage = UIImage(systemName: "checkmark.seal.fill")
 
         let heartBodyItem = ORKBodyItem(
-            text: "The study will ask you to share some of your health data.",
+            text: "The program will ask you to share some of your health data.",
             detailText: nil,
             image: UIImage(systemName: "heart.fill"),
             learnMoreItem: nil,
@@ -45,7 +45,7 @@ struct Surveys {
         )
 
         let completeTasksBodyItem = ORKBodyItem(
-            text: "You will be asked to complete various tasks over the duration of the study.",
+            text: "You will be asked to complete various tasks over the duration of the program.",
             detailText: nil,
             image: UIImage(systemName: "checkmark.circle.fill"),
             learnMoreItem: nil,
@@ -118,7 +118,7 @@ struct Surveys {
         )
 
         requestPermissionsStep.title = "Health Data Request"
-        requestPermissionsStep.text = "Please review the health data types below and enable sharing to contribute to the study."
+        requestPermissionsStep.text = "Please review the health data types below and enable sharing to contribute to the program."
 
         // Completion Step
         let completionStep = ORKCompletionStep(
@@ -126,7 +126,7 @@ struct Surveys {
         )
 
         completionStep.title = "Enrollment Complete"
-        completionStep.text = "Thank you for enrolling in this study. Your participation will contribute to meaningful research!"
+        completionStep.text = "Thank you for enrolling in this program. Your participation will contribute to meaningful research!"
 
         let surveyTask = ORKOrderedTask(
             identifier: "onboard",
